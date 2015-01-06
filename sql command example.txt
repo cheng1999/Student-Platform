@@ -1,0 +1,12 @@
+create database village;
+create table profile (studentno int(7) not null,username varchar(45) not null,hash text not null,class varchar(3) not null,self text,birthday varchar(21));
+
+create table storytelling (id int(11) not null auto_increment primary key,studentno int(7) not null,text text not null,time varchar(21) not null);
+insert into storytelling (studentno,text,time) values('','','');
+
+create table storytelling2 (id varchar(11) not null,studentno int(7) not null,text text not null,time varchar(21)not null);
+
+
+
+//to create an account
+insert into profile(studentno,username,hash,class,self,birthday)values(2013045,'Cheng','c6f057b86584942e415435ffb1fa93d4','J2X',null,null);
