@@ -43,7 +43,7 @@ else{
 	
 	//reply		(PostID!=1 && PostID is the id of post to reply)
 	else{
-		if(!@mysql_query("INSERT INTO storytelling2 (id, text, text , time)VALUES( $PostID, '$studentno', '$text', '$time')"))
+		if(!@mysql_query("INSERT INTO storytelling2 (id, studentno, text , time)VALUES( $PostID, '$studentno', '$text', '$time')"))
 			die( mysql_error ());
 	}
 }
