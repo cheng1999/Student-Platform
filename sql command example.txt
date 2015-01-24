@@ -2,7 +2,6 @@ create database village;
 create table profile (studentno int(7) not null,username varchar(45) not null,hash text not null,class varchar(3) not null,self text,birthday varchar(21));
 
 create table storytelling (id int(11) not null auto_increment primary key,studentno int(7) not null,text text not null,time varchar(21) not null);
-insert into storytelling (studentno,text,time) values('','','');
 
 create table storytelling_reply (id varchar(11) not null,studentno int(7) not null,text text not null,time varchar(21)not null);
 create table storytelling_plus1 (studentno varchar(7) not null,postid int(11) not null);
