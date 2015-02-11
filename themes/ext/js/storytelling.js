@@ -1,9 +1,11 @@
 var loaded=0;//this var is the post number that have loaded
 
-//loadpost();
+window.scrollTo(0, 0);
+loadpost();
 
-$(window).scroll(function() {   
-	if ($(window).scrollTop() + $(window).height() == $(document).height()){
+//loadpost();
+$(window).scroll(function() {
+    if ($(window).scrollTop() + $(window).height() == $(document).height()){
 	    loadpost();
 	}
 });
@@ -23,7 +25,7 @@ function load(mode) {//----------------------------------loading post-----------
     if (totalposts>loaded){
     document.getElementById("loading").style.visibility = "visible";
 	$.ajax({
-		url: '?p=loadposts&load='+loaded+'&mode='+mode,
+		url: '?p=st_loadposts&load='+loaded+'&mode='+mode,
 		type: 'POST',
 		data: {
 			page:$(this).data('page'),
@@ -38,12 +40,13 @@ function load(mode) {//----------------------------------loading post-----------
 				if(mode==2){//mode 2 for reply
 					$("#replyList").append(response);
 					reply=document.getElementById("replyList").getElementsByClassName("reply");
-					Post=document.getElementById("PostList");
+					Post=document.getElementById("PostList").getElementsByTagName("div");
 					for(var i=0;reply.length!=0;i++){
-						Post.getElementsByTagName("div")[reply[0].id].appendChild(reply[0]);
+					    if(Post[reply[0].id]){//if parent post is exist
+						    Post[reply[0].id].appendChild(reply[0]);
+					    }else{reply[0].remove();}
 					}
 				}
-		        
 			}
 		}
 	});
@@ -56,8 +59,8 @@ function load(mode) {//----------------------------------loading post-----------
 }
 
 
+//reply plus1 image click listener
 var PostID;
-
 function enableAButton(){
 $(".cmt #reply").click(function(){
   PostID=$(this).parent().attr("id").substring(4);
@@ -67,9 +70,29 @@ $(".cmt #reply").click(function(){
 
 $(".cmt #plus1").click(function(){
   PostID=$(this).parent().attr("id").substring(4);
-  $.get("?p=post&mode=3&PostID="+PostID);
+  $.get("?p=st_post&mode=3&PostID="+PostID);
   var plused = $(this).parent().find('#plused');
   plused.text("+"+(parseInt(plused.text())+1));//clear the #plused
   this.style.visibility='hidden';
 });
+
+$(".cmt #postimg").click(function(){
+  this.style.maxHeight="none";
+});
+
+$(".cmt #report").click(function(){
+    PostID=$(this).parent().parent().attr("id").substring(4);
+    window.location.href="?p=st_report&PostID="+PostID;
+});
 }
+
+function chkPostingStatus(){
+    var buttonSubmit=document.getElementById("buttonSubmit")
+    buttonSubmit.style.backgroundColor="#d9534f";
+    buttonSubmit.style.content="Posting...";
+    
+    $("#PostAction").load(function(){
+        window.location.href = "?p=storytelling";
+    });
+}
+

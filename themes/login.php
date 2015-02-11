@@ -1,6 +1,6 @@
 <?php
-if($logged){
-	echo '<meta http-equiv=REFRESH CONTENT=1;url=index.php>';
+if(@$_SESSION['logged']){
+	header('Location: ?p=home');
 }
 ?>
 

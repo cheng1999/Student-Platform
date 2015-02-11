@@ -17,7 +17,7 @@
     */
 
 //逗号的排列是为了让我看了舒服的 B|
-$indicatedPage=array(
+$indicated_Page=array(
     //request name: target web path
     
     //nav bar's tab
@@ -31,7 +31,8 @@ $indicatedPage=array(
     'validlogin'    =>ROOT_DIR."functions/login_validator.php"      ,
     
     //storytelling
-    'post'         =>ROOT_DIR."functions/storytelling/post.php"             ,
-    'loadposts'          =>ROOT_DIR."functions/storytelling/loadposts.php"  ,
+    'st_post'          =>ROOT_DIR."functions/storytelling/post.php"        ,
+    'st_loadposts'     =>ROOT_DIR."functions/storytelling/loadposts.php"   ,
+    'st_report'        =>ROOT_DIR."functions/storytelling/report.php"      ,
     );
 ?>

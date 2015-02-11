@@ -1,4 +1,7 @@
 <?php
+/*
+    configure of php.ini you may change it in .htaccess
+*/
 
 //Database Config
 $DB_SERVER="localhost";   //Database Server

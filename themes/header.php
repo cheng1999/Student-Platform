@@ -1,7 +1,7 @@
 <header>
 	<div id="nav">
 	    <div id="lgo">
-		    <a href="/">CHS</a>
+		    <a href="?p=home">CHS</a>
 		    <a id="lgoCmt">属于公教生的网站</a>
 		</div>
 		<ul>

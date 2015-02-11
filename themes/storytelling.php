@@ -1,5 +1,8 @@
 <?php
-exit_if_no_logged();
+    if(!checklogin()){
+        login_before_access();
+        exit();
+    }
 ?>
 
 <!--
@@ -26,8 +29,8 @@ programmer:Lee Guo Cheng
 
 <body>
 	<div id="container">
-		<div id="left_con">
-			<form id="Postbox" method="post" action="?p=post">
+
+			<form id="Postbox" method="post" action="?p=st_post" target="PostAction" enctype="multipart/form-data">
 		    <input id="PostID" type="hidden" value="" name="PostID">
 				<textarea id="textInput" name="text" placeholder="Write a status..." 
 				onkeydown="if(event.ctrlKey&&event.keyCode==13){
@@ -35,8 +38,12 @@ programmer:Lee Guo Cheng
 					return false};
 					"></textarea>
 				<br>
-				<input id="buttonSubmit" type="submit" value="Post (ctrl+enter)">
+				<input id="attachment" value=+link>
+				<input id="attachment" type="file" name="image">
+				
+				<input id="buttonSubmit" type="submit" value="Post (ctrl+enter)" onclick="chkPostingStatus()">
 			</form>
+			<iframe id="PostAction" name="PostAction" style="display:none" src="?p=st_post" ></iframe>
 			<div id="PostList">
 			</div>
 			<center id="loadstatus" style="color:#4D4D4D;font-weight:bold;"><img src="<?php echo $Template?>ext/image/loading.gif" id="loading"></img></center>
@@ -45,7 +52,7 @@ programmer:Lee Guo Cheng
 				<div id=replyList></div>
 					
 					<div class="cmt">
-                    <form id="Postbox" class="cmt" method="post" action="?p=post">
+                    <form id="Postbox" class="cmt" method="post" target="PostAction" action="?p=st_post">
 	<!-----------------><input id="PostID" type="hidden" value="" name="PostID">
 						<textarea id="textInput" name="text" placeholder="Write a comment..." 
 						onkeydown="if(event.ctrlKey&&event.keyCode==13){
@@ -53,18 +60,13 @@ programmer:Lee Guo Cheng
 							return false};
 							"></textarea>
 						<br>
-						<input id="buttonSubmit" type="submit" value="Post (ctrl+enter)">
+						<input id="buttonSubmit" type="submit" value="Post (ctrl+enter)" onclick="chkPostingStatus()">
 					</form>
 				</div>
 			</div>
-		</div>
-		
-		<div id="right_con">
-			something here...
-		</div>
 	</div>
 
 
-<script src="<?php echo $Template ?>ext/js/post.js"></script>
+<script src="<?php echo $Template ?>ext/js/storytelling.js"></script>
 </body>
 </html>

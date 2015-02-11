@@ -1,5 +1,7 @@
 <?php
-exit_if_no_logged();
+if(!checklogin()){
+    exit();
+}
 
 extract($_GET);
 
@@ -45,23 +47,29 @@ while($row = mysql_fetch_row($result)){
         array_push($plus1studentno,$plus1row[1]);
     }
 
-	echo 	"<div class=\"cmt\" id=\"cmt-$row[0]\"><div id=\"cmtauthor\">";	//id
-	echo    '<n>'.mysql_fetch_row(mysql_query("SELECT * FROM profile WHERE studentno=$row[1]"))[1].'<n>';       //username from profile table where sutdentno is match
-	echo    "<a id=\"plused\">+$plus1</a>";
-	echo	"<date>$row[3]</date></div>",									//time
-			"<a id=\"reply\">reply</a>";									//reply <a>
-			
-    if(!in_array($_SESSION['studentno'],$plus1studentno)){//check user plused 1 to this post or not
-        echo    "<a id=\"plus1\"></a>";									        //plus1 <a>
+	echo 	"<div class=\"cmt\" id=\"cmt-$row[0]\"><div id=\"cmtauthor\">",	//id
+	        '<n>'.mysql_fetch_row(mysql_query("SELECT username FROM profile WHERE studentno=$row[1]"))[0].'</n>',       //username
+	        "<a id=\"report\">report</a>",                                         //report
+	        "<date>$row[3]</date></div>",									//time
+	        "<div id=\"text\">$row[2]</div>";							    //text
+	        
+    if($row[4]>0){
+	    echo "<img id=\"postimg\" src=\"uploads/$row[4]\"></img><br class=\"clear\">";   //load image if exist
     }
     
-	echo "<div id=\"text\">$row[2]</div></div>";							//text			
+    if(!in_array($_SESSION['studentno'],$plus1studentno)){//check user plused 1 to this post or not
+        echo    "<a id=\"plus1\"></a>";									    //plus1 <a>
+    }
+    echo	"<a id=\"reply\"></a><br class=\"clear\"></div>";								    //reply <a>
+			
+	
+    
 }
 }
 else if($mode==2){  //loading comments (this data will allot to their belongs posts with javascript)
 while($row = mysql_fetch_row($result)){
 	echo 	"<div class=\"reply\" id=\"cmt-$row[0]\"><div id=\"cmtauthor\">";	//id
-	echo    '<n>'.mysql_fetch_row(mysql_query("SELECT * FROM profile WHERE studentno=$row[1]"))[1].'<n>';       //username from profile table where sutdentno is match
+	echo    '<n>'.mysql_fetch_row(mysql_query("SELECT username FROM profile WHERE studentno=$row[1]"))[0].'<n>';       //username from profile table where sutdentno is match
 	echo	"<date>$row[3]</date></div>",										//time
 			"<div id=\"text\">$row[2]</div></div>";								//text		
 }

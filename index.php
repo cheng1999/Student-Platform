@@ -2,11 +2,10 @@
 <?php
 //Variables Configuring FIRST
 define("ROOT_DIR",__DIR__."/");             //the root of this site
-//$functions_in_nav;  //this is an array, contain the strings which will add into nav bar in home page
 
 //loading all require files
 require(ROOT_DIR."Configure/Config.php");   //loding Config
 
-include(ROOT_DIR."functions/function.php");
+include(ROOT_DIR."functions/initial.php");
 
 ?>

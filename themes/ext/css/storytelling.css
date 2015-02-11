@@ -4,12 +4,16 @@
 		padding:0;
 	}
 	
+	html {
+	    min-height:120%;
+	}
+	
 	div#container {
 		background-color: #ffffff;
 		margin: auto;
 		overflow: hidden;
 		padding: 10px;
-		width:960px;
+		width:auto;
 	}
 	
 	div#left_con {
@@ -76,7 +80,22 @@
 		border: 1px solid #ccc;
 		height: 125px;
 		width: 100%;
-		margin-bottom:2%;
+	}
+	
+	#Postbox #attachment {
+	    background-color: #ccc;
+		color: #f9f9f9;
+		font-size: small;
+		font-weight:bold;
+		text-align:center;
+		float:left;
+		width:49%;
+		margin-left:1px;
+		margin-bottom:5px;
+		height:25px;
+		text-transform: uppercase;
+		cursor:pointer;
+		position:relative;
 	}
 	
 	#Postbox #buttonSubmit {
@@ -99,9 +118,15 @@
 		background-color: #FFFFFF;
 		margin-bottom:10px;
 		padding:10px;
+		clear:both;
+	}
+	
+	.clear {
+	    clear:both;
 	}
 	
 	.reply {
+	    clear:both;
 		background-color:#FBFBFB;
 		border :1px dotted #ddd;
 		border-left:5px solid #ddd;
@@ -128,11 +153,23 @@
 		left:0;
 	}
 	
-	a#plused{
+	a#plused {
 	    color:green;
 	    font-size:small;
 	    float:left;
 	    margin-right:20px;
+	}
+	a#report {
+	    color:#ccc;
+	    font-size:small;
+	    font-weight:lighter;
+	    float:right;
+	    padding:0;
+	    padding-left:4px;
+	    cursor:pointer;
+	}
+	#report:hover {
+	    color:red;
 	}
 	
 	date {
@@ -141,8 +178,16 @@
 		float:right;
 	}
 	
+	#postimg {
+	    max-width:100%;
+	    max-height:200px;
+	    margin-bottom:5px;
+	    clear:both;
+	    cursor:pointer;
+	}
+	
 	a#reply, a#plus1 {
-		float:right;
+		float:left;
 		background-color:#DCDCDC;
 		border:2px solid #ccc;
 		padding:2px;
@@ -150,16 +195,19 @@
 		font-size: small;
 		height:15px;
 		cursor:pointer;
+		margin-right:2px;
+		margin-bottom:5px;
+		
 	}
-	a#plus1:before {content:"+1"}
+	a#reply:before {content:"reply";}
+	a#plus1:before {content:"+1";}
 	a#plus1:focus:active:target{
 	    background-color:#ccc;
 	    padding:3px;
 	}
 	
 	#hideCon {
-		visibility:hidden;
-		height:0;width:0;
+		display:none;
 	}
 	
 	img#loading {
