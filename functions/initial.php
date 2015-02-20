@@ -26,9 +26,10 @@ if(!@mysql_select_db("$DB_NAME"))
             domain.com/?p=home      :   go to home page
             domain.com/?p=aboutus   :   go to about us
     */
-if(@$_GET['p']!=null){
+include(ROOT_DIR."Configure/PageVar.php");
+if(@$indicated_Page[$_GET['p']]){
     //the file containing the target which is $_GET['p'] indicate for
-    include(ROOT_DIR."Configure/PageVar.php");
+    
     include $indicated_Page[$_GET['p']];//include target page
 }
 else{//loading homepage if $_GET require nothing
