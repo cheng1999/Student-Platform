@@ -44,6 +44,7 @@ function load(mode) {
 					    $('#PostList').append(
 					        "<div class=\"cmt\" id=\"" + post[i][0] + "\">" +   //postid
 					        "<div id=\"cmtauthor\">"                        +
+					        "<a id=\"plused\">+" + post[i][5] + "</a>"       +   //plus1
 					        "<a id=\"user\" href=\"?p=profile&studentno=" + post[i][1] + "\">" + post[i][2] + "</a>"  +   //username
 					        "<a id=\"report\"></a>"                         +
 					        "<date>" + post[i][4] + "</date></div>"         +   //time

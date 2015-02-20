@@ -1,3 +1,6 @@
+ALTER DATABASE databasename CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER TABLE tablename CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
 create database village;
 create table profile (studentno int(7) not null,username varchar(45) not null,hash text not null,class varchar(3) not null,self text,birthday varchar(21));
 
