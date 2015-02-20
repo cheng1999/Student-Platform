@@ -6,7 +6,7 @@ checklogin()    login_before_access()
 */
 
 function checklogin(){
-    if($_SESSION['logged']){
+    if(@$_SESSION['studentno']){
         return true;
     }
     else{

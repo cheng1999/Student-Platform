@@ -1,5 +1,6 @@
 var loaded=0;//this var is the post number that have loaded
 
+//initial
 window.scrollTo(0, 0);
 loadpost();
 
@@ -17,11 +18,12 @@ function loadpost(){
         loaded+=20;
     }, 1000);
 }
-var mode;
-var reply;
+
+
+//----------------------------------request the posts from server----------------------------------
 var loading=document.getElementById("loading");
-function load(mode) {//----------------------------------loading post----------------------------------
-	
+var mode;
+function load(mode) {
     if (totalposts>loaded){
     document.getElementById("loading").style.visibility = "visible";
 	$.ajax({
@@ -34,24 +36,48 @@ function load(mode) {//----------------------------------loading post-----------
 			if(response){
 				loading.style.visibility = "hidden";
 				if(mode==1){//mode 1 for post
-					$("#PostList").append(response);
+					eval(response);//eval is about add post to var post
+					//post.push([id,studentno,username,text,time,plus1,boolean plused,image])
+					
+					//append post to postlist(layout)
+					for(i=0;i<post.length;i++){
+					    $('#PostList').append(
+					        "<div class=\"cmt\" id=\"" + post[i][0] + "\">" +   //postid
+					        "<div id=\"cmtauthor\">"                        +
+					        "<a id=\"user\" href=\"?p=profile&studentno=" + post[i][1] + "\">" + post[i][2] + "</a>"  +   //username
+					        "<a id=\"report\"></a>"                         +
+					        "<date>" + post[i][4] + "</date></div>"         +   //time
+					        "<div id=\"text\">" + post[i][3] + "</div>"     +   //text
+					        (post[i][7] ? ("<img id=\"postimg\" src=\"uploads/" + post[i][7] + "\"></img><br>") : "") +  //image     //if have image return image filename
+					        (post[i][6] ? ("<a id=\"plus1\"></a>") : "")    +   //plus1(like) button    //if user did like this post, no button for use to press
+					        "<a id=\"reply\"></a><br class=\"clear\"></div>"
+					    );
+					}
+					
+					post=[];//emty post[]
 					enableAButton();
 				}
 				if(mode==2){//mode 2 for reply
-					$("#replyList").append(response);
-					reply=document.getElementById("replyList").getElementsByClassName("reply");
-					Post=document.getElementById("PostList").getElementsByTagName("div");
-					for(var i=0;reply.length!=0;i++){
-					    if(Post[reply[0].id]){//if parent post is exist
-						    Post[reply[0].id].appendChild(reply[0]);
-					    }else{reply[0].remove();}
-					}
+				    eval(response);
+				    
+				    //reply.push([parentpostid,studentno,username,text,time])
+				    for(i=0;i<reply.length;i++){
+					    if($(".cmt#" + reply[i][0])){    //id   //if the post with indicated id existed
+					        $(".cmt#" + reply[i][0]).append(
+    					        "<div class=\"reply\"><div id=\"cmtauthor\">"   +
+    					        "<a id=\"user\" href=\"?p=profile&studentno=" + reply[i][1] + "\">" + reply[i][2] + "</a>"                     +   //username
+    					        "<date>" + reply[i][4] + "</date></div>"        +   //time
+    					        "<div id=\"text\">" + reply[i][3] + "</div></div>"     //text
+					        );
+					    }
+				    }
+                    reply=[]; //emty reply
 				}
 			}
 		}
 	});
     }
-//if element which id is cmt-1 is detect, means that database have no more post,so this element will show "no more"
+//if database have no more post,so this element will show "no more"
     else if (totalposts<loaded){
     	loading.style.visibility = "hidden";
     	document.getElementById("loadstatus").innerHTML="no more";
@@ -59,33 +85,37 @@ function load(mode) {//----------------------------------loading post-----------
 }
 
 
-//reply plus1 image click listener
+//-----------------------------------------function()--------------------------------------------------
+//some action listener
 var PostID;
-function enableAButton(){
+function enableAButton(){   //reply
 $(".cmt #reply").click(function(){
-  PostID=$(this).parent().attr("id").substring(4);
+  PostID=$(this).parent().attr("id");
   $(this).parent().append($('.cmt #Postbox'));
   $(".cmt #Postbox #PostID").attr('value',''+PostID);
 });
 
-$(".cmt #plus1").click(function(){
-  PostID=$(this).parent().attr("id").substring(4);
+$(".cmt #plus1").click(function(){  //plus1
+  PostID=$(this).parent().attr("id");
   $.get("?p=st_post&mode=3&PostID="+PostID);
   var plused = $(this).parent().find('#plused');
   plused.text("+"+(parseInt(plused.text())+1));//clear the #plused
   this.style.visibility='hidden';
 });
 
-$(".cmt #postimg").click(function(){
+$(".cmt #postimg").click(function(){    //image
   this.style.maxHeight="none";
 });
 
-$(".cmt #report").click(function(){
-    PostID=$(this).parent().parent().attr("id").substring(4);
+$(".cmt #report").click(function(){ //report
+    PostID=$(this).parent().parent().attr("id");
     window.location.href="?p=st_report&PostID="+PostID;
 });
 }
 
+
+
+//post
 function chkPostingStatus(){
     var buttonSubmit=document.getElementById("buttonSubmit")
     buttonSubmit.style.backgroundColor="#d9534f";

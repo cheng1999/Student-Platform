@@ -4,17 +4,16 @@ if(!checklogin()){
 }
 
 $studentno=$_SESSION['studentno'];
-
-$PostID = $_POST['PostID'];
-$text   = $_POST['text'];
+@$PostID = $_POST['PostID'];
+@$text   = $_POST['text'];
 @$plus1Target  = $_GET['PostID']; //in some condition this will null
 
-$image = $_FILES['image'];
+@$image = $_FILES['image'];
 
 //plus1
-if(@$_GET['mode']==3){ //if user click "+1" <a> button the value 3 will send with mode,which means like this post
-    if(!@mysql_query("INSERT IGNORE INTO storytelling_plus1 (primarykey,studentno,postid)VALUES($studentno$plus1Target,$studentno,$plus1Target)" ))
-		die(mysql_error ());
+//intval() to prevent blind sql injection
+if(@intval($_GET['mode'])==3){ //if user click "+1" <a> button the value 3 will send with mode,which means like this post
+    mysql_query("INSERT IGNORE INTO storytelling_plus1 (primarykey,studentno,postid)VALUES($studentno$plus1Target,$studentno,$plus1Target)");
     exit();
 }
 
@@ -48,9 +47,9 @@ else{
  */
 	//post	($PostID==1)
 	if($PostID==0){
-	    
 	    if(is_uploaded_file($image['tmp_name'])){//if have image
 	        $imageid=mysql_fetch_row(mysql_query("SELECT MAX(imageid) FROM storytelling"))[0]+1;//the imageid to insert must lager that the max imageid in database to prevent no used id will reuse
+	        
 	        include('processimg.php');//upload image
 	        if(!@mysql_query("INSERT INTO storytelling (studentno, text , time , imageid)VALUES( $studentno, '$text', '$time',$imageid)"))//write into database with image data
 			    die( mysql_error ());

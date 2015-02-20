@@ -13,7 +13,6 @@
 		margin: auto;
 		overflow: hidden;
 		padding: 10px;
-		width:auto;
 	}
 	
 	div#left_con {
@@ -88,14 +87,12 @@
 		font-size: small;
 		font-weight:bold;
 		text-align:center;
-		float:left;
-		width:49%;
-		margin-left:1px;
+		width:50%;
 		margin-bottom:5px;
 		height:25px;
 		text-transform: uppercase;
 		cursor:pointer;
-		position:relative;
+		
 	}
 	
 	#Postbox #buttonSubmit {
@@ -146,11 +143,13 @@
 		color: #4D4D4D;
 	}
 	
-	n {
+	#user {
+	    text-decoration:none;
 		font-weight:bold;
 		color: #3B3B3B;
 		font-style: normal;
 		left:0;
+		cursor:pointer;
 	}
 	
 	a#plused {

@@ -20,11 +20,13 @@
 $indicated_Page=array(
     //request name: target web path
     
-    //nav bar's tab
+    //main sidebar's tabs
     'home'          =>$Template."index.php"         ,
-    'aboutus'       =>$Template."aboutus.php"       ,
+    'profile'       =>$Template."profile.php"       ,
     'storytelling'  =>$Template."storytelling.php"  ,
-    'classEventBook'=>$Template.""                  ,
+    'ask'           =>$Template.""                  ,//have not start this project yet  //at the beginning we found out something, and we ask: why ?
+    'classEventBook'=>$Template.""                  ,//have not start this project yet
+    'aboutus'       =>$Template."aboutus.php"       ,
     
     //login
     'login'         =>$Template."login.php"         ,

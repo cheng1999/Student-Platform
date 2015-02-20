@@ -17,29 +17,31 @@ programmer:Lee Guo Cheng
 -->
 
 <!DOCTYPE HTML>
-<html>	
+<html>
 <head>
-<meta http-equiv="Content-Type"content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width">
-<title>village</title>
+<?php include('head.php') ?>
 <link rel="stylesheet" href="<?php echo $Template ?>ext/css/storytelling.css">
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script>var totalposts=<?php echo mysql_fetch_row(mysql_query("select COUNT(*) from storytelling"))[0] //get total posts number from database ?></script>
+
+<script class="loadpost">
+var post=[],reply=[];
+var totalposts=<?php echo mysql_fetch_row(mysql_query("select COUNT(*) from storytelling"))[0] //get total posts number from database ?>;
+</script>
+
 </head>
 
 <body>
+<?php include('header.php') ?>
 	<div id="container">
 
 			<form id="Postbox" method="post" action="?p=st_post" target="PostAction" enctype="multipart/form-data">
 		    <input id="PostID" type="hidden" value="" name="PostID">
-				<textarea id="textInput" name="text" placeholder="Write a status..." 
+				<textarea id="textInput" name="text" placeholder="share somethings to school..." 
 				onkeydown="if(event.ctrlKey&&event.keyCode==13){
 					this.parentNode.buttonSubmit.click();
 					return false};
 					"></textarea>
 				<br>
-				<input id="attachment" value=+link>
-				<input id="attachment" type="file" name="image">
+				<input id="attachment" type="file" name="image"><br>
 				
 				<input id="buttonSubmit" type="submit" value="Post (ctrl+enter)" onclick="chkPostingStatus()">
 			</form>

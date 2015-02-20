@@ -11,8 +11,14 @@ $DB_PASS="";            //Database Password
 
 $DB_CHAR="utf8";        //Database Charset
 
+
 //html Layout Config
 $Title="公教村";
 
 $Template="themes/";     //the framework will auto load index.php from $Template
+
+
+//salt for hash
+$salt="HAsh741852963";
+
 ?>  

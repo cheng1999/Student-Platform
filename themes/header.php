@@ -8,7 +8,12 @@
 			<li>
 				<a href="?p=home">首页</a>
 			</li>
+			<li>
+				<a href="?p=profile">个人主页</a>
+			</li>
+			<li>
 				<a href="?p=storytelling">说故事</a>
+			</li>
 			<li>
 				<a href="#">班级事件簿</a>
 			</li>

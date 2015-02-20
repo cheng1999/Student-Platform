@@ -3,7 +3,7 @@ if(!checklogin()){
     exit();
 }
 
-if(@trim($_POST['text'])!=null){ //if user is input
+if($_POST){ //if user did input
     $studentno=$_SESSION['studentno'];
     $PostID = (@$_GET['PostID'] ? $_GET['PostID'] : $_POST['PostID']);   // if get is null then get post
     $text   = $_POST['text'];
@@ -22,7 +22,7 @@ if(@trim($_POST['text'])!=null){ //if user is input
     //write into sql
     if(!@mysql_query("INSERT INTO storytelling_report (postid, studentno, text , time)VALUES( $PostID, $studentno, '$text', '$time')"))
         die( mysql_error ());
-    echo "<script>alert(\"report success\");";
+    echo "<script>alert(\"report success! Thanks for your report.\");";
     echo "window.location.href=\"?p=storytelling\"</script>";
 }
 ?>

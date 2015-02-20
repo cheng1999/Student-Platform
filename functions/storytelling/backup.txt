@@ -1,0 +1,24 @@
+	        echo 	"<div class=\"cmt\" id=\"cmt-$row[0]\"><div id=\"cmtauthor\">",	//id
+	        '<n>'.mysql_fetch_row(mysql_query("SELECT username FROM profile WHERE studentno=$row[1]"))[0].'</n>',       //username
+	        "<a id=\"report\">report</a>",                                         //report
+	        "<date>$row[3]</date></div>",									//time
+	        "<div id=\"text\">$row[2]</div>";							    //text
+	        
+    if($row[4]>0){
+	    echo "<img id=\"postimg\" src=\"uploads/st_$row[4]\"></img><br class=\"clear\">";   //load image if exist
+    }
+    
+    if(!in_array($_SESSION['studentno'],$plus1studentno)){//check user plused 1 to this post or not
+        echo    "<a id=\"plus1\"></a>";									    //plus1 <a>
+    }
+    echo	"<a id=\"reply\"></a><br class=\"clear\"></div>";								    //reply <a>
+			
+			
+			
+			
+			
+				echo 	"<div class=\"reply\" id=\"cmt-$row[0]\"><div id=\"cmtauthor\">";	//id
+	echo    '<n>'.mysql_fetch_row(mysql_query("SELECT username FROM profile WHERE studentno=$row[1]"))[0].'<n>';       //username from profile table where sutdentno is match
+	echo	"<date>$row[3]</date></div>",										//time
+			"<div id=\"text\">$row[2]</div></div>";								//text		
+}

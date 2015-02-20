@@ -62,7 +62,7 @@
 		float: left;
 		display:inline-block;
 	}
-	#nav a:link, a:visited {
+	#nav a:link,#nav a:visited {
 		color: #fff;
 		display: block;
 		float: left;

@@ -1,5 +1,5 @@
 <?php
-if(@$_SESSION['logged']){
+if(@$_SESSION['studentno']){
 	header('Location: ?p=home');
 }
 ?>
