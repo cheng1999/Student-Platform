@@ -48,15 +48,19 @@ function load(mode) {
 					        "<a id=\"user\" href=\"?p=profile&studentno=" + post[i][1] + "\">" + post[i][2] + "</a>"  +   //username
 					        "<a id=\"report\"></a>"                         +
 					        "<date>" + post[i][4] + "</date></div>"         +   //time
-					        "<div id=\"text\">" + post[i][3] + "</div>"     +   //text
+					        
+					        "<div id=\"Pcontent\"><div id=\"text\">" + post[i][3] + "</div></div>"     +   //text
+					        
 					        (post[i][7] ? ("<img id=\"postimg\" src=\"uploads/" + post[i][7] + "\"></img><br>") : "") +  //image     //if have image return image filename
 					        (post[i][6] ? ("<a id=\"plus1\"></a>") : "")    +   //plus1(like) button    //if user did like this post, no button for use to press
 					        "<a id=\"reply\"></a><br class=\"clear\"></div>"
 					    );
+					    
+					    
 					}
 					
 					post=[];//emty post[]
-					enableAButton();
+					
 				}
 				if(mode==2){//mode 2 for reply
 				    eval(response);
@@ -68,12 +72,15 @@ function load(mode) {
     					        "<div class=\"reply\"><div id=\"cmtauthor\">"   +
     					        "<a id=\"user\" href=\"?p=profile&studentno=" + reply[i][1] + "\">" + reply[i][2] + "</a>"                     +   //username
     					        "<date>" + reply[i][4] + "</date></div>"        +   //time
-    					        "<div id=\"text\">" + reply[i][3] + "</div></div>"     //text
+    					        "<div id=\"Pcontent\"><div id=\"text\">" + reply[i][3] + "</div></div></div>"     //text
 					        );
 					    }
 				    }
                     reply=[]; //emty reply
+                    
 				}
+				chkOverFlowText();
+				enableAButton();
 			}
 		}
 	});
@@ -90,22 +97,26 @@ function load(mode) {
 //some action listener
 var PostID;
 function enableAButton(){   //reply
+$(".cmt #readmore").click(function(){
+    $(this).closest("#Pcontent").find("#text").css({"maxHeight":"none","overflow":"auto"});
+    $(this).remove();
+});
 $(".cmt #reply").click(function(){
-  PostID=$(this).parent().attr("id");
-  $(this).parent().append($('.cmt #Postbox'));
-  $(".cmt #Postbox #PostID").attr('value',''+PostID);
+    PostID=$(this).parent().attr("id");
+    $(this).parent().append($('.cmt #Postbox'));
+    $(".cmt #Postbox #PostID").attr('value',''+PostID);
 });
 
 $(".cmt #plus1").click(function(){  //plus1
-  PostID=$(this).parent().attr("id");
-  $.get("?p=st_post&mode=3&PostID="+PostID);
-  var plused = $(this).parent().find('#plused');
-  plused.text("+"+(parseInt(plused.text())+1));//clear the #plused
-  this.style.visibility='hidden';
+    PostID=$(this).parent().attr("id");
+    $.get("?p=st_post&mode=3&PostID="+PostID);
+    var plused = $(this).parent().find('#plused');
+    plused.text("+"+(parseInt(plused.text())+1));//clear the #plused
+    this.style.visibility='hidden';
 });
 
 $(".cmt #postimg").click(function(){    //image
-  this.style.maxHeight="none";
+    this.style.maxHeight="none";
 });
 
 $(".cmt #report").click(function(){ //report
@@ -125,5 +136,15 @@ function chkPostingStatus(){
     $("#PostAction").load(function(){
         window.location.href = "?p=storytelling";
     });
+}
+
+//text overflow;
+function chkOverFlowText(){
+    $("*#readmore").remove();
+    for(var i=0;i<$("*#Pcontent").length;i++){
+        if($("*#text")[i].scrollHeight >  $('#text').innerHeight()){
+            $("*#Pcontent")[i].innerHTML += "<a id=\"readmore\">read more</a>";
+        }
+    }
 }
 

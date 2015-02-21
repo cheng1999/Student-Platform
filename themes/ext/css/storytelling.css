@@ -136,11 +136,22 @@
 		margin-bottom:10px;
 		border-bottom:1px solid #8BC7FF;
 	}
-		
-	#text {
-		margin-left:5px;
-		margin-bottom:20px;
+	
+	#text{
+		margin-left:20px;
+		margin-bottom:30px;
 		color: #4D4D4D;
+		line-height: 20px;
+		margin-top:20px;
+		max-height:100px;
+		overflow:hidden;
+	}
+	
+	#readmore {
+	    cursor:pointer;
+	    background-color:#dcdcdc;
+	    float:right;
+	    color:#676767;
 	}
 	
 	#user {
@@ -152,11 +163,16 @@
 		cursor:pointer;
 	}
 	
+	#user:hover {
+	    text-decoration:underline;
+	}
+	
 	a#plused {
 	    color:green;
 	    font-size:small;
 	    float:left;
 	    margin-right:20px;
+	    font-weight:bold;
 	}
 	a#report {
 	    color:#ccc;
