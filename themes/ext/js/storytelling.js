@@ -17,6 +17,10 @@ function loadpost(){
         load(2);
         loaded+=20;
     }, 1000);
+    setTimeout(function(){//loading reply of posts after 1 second 
+        chkOverFlowText();
+    }, 1000);
+    
 }
 
 
@@ -51,9 +55,9 @@ function load(mode) {
 					        
 					        "<div id=\"Pcontent\"><div id=\"text\">" + post[i][3] + "</div></div>"     +   //text
 					        
-					        (post[i][7] ? ("<img id=\"postimg\" onclick=\"postimg($(this)\" src=\"uploads/" + post[i][7] + "\"></img><br>") : "") +  //image     //if have image return image filename
+					        (post[i][7] ? ("<img id=\"postimg\" onclick=\"bigimg($(this))\" src=\"uploads/" + post[i][7] + "\"></img><br>") : "") +  //image     //if have image return image filename
 					        (post[i][6] ? ("<a id=\"plus1\" onclick=\"plus1($(this))\"></a>") : "")    +   //plus1(like) button    //if user did like this post, no button for use to press
-					        "<a id=\"reply\" onclick=\"reply($(this))\"></a><br class=\"clear\"></div>"
+					        "<a id=\"reply\" onclick=\"doreply($(this))\"></a><br class=\"clear\"></div>"
 					    );
 					    
 					    
@@ -79,7 +83,7 @@ function load(mode) {
                     reply=[]; //emty reply
                     
 				}
-				chkOverFlowText();
+				
 			}
 		}
 	});
@@ -100,7 +104,7 @@ function readmore(THIS){
     THIS.closest("#Pcontent").find("#text").css({"maxHeight":"none","overflow":"auto"});
     THIS.remove();
 }
-function reply(THIS){
+function doreply(THIS){
     PostID=THIS.parent().attr("id");
     THIS.parent().append($('.cmt #Postbox'));
     $(".cmt #Postbox #PostID").attr('value',''+PostID);
@@ -112,8 +116,8 @@ function plus1(THIS){
     plused.text("+"+(parseInt(plused.text())+1));//clear the #plused
     THIS.remove();
 }
-function postimg(THIS){
-    THIS.style.maxHeight="none";
+function bigimg(THIS){
+    THIS.css("maxHeight","none");
 }
 function report(THIS){
     POSTID=(THIS.parent().parent().attr("id"));

@@ -15,7 +15,7 @@ $salted = md5($salt.$hash.$salt);   //salt the password to make weak password st
             header("Location: " . $_SESSION['request_uri']);
         }
         else{
-            header("Location: index.php");
+            header("Location: ?p=home");
         }
     }
     else{               //login failed
