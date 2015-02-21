@@ -17,10 +17,6 @@ function loadpost(){
         load(2);
         loaded+=20;
     }, 1000);
-    setTimeout(function(){//loading reply of posts after 1 second 
-        chkOverFlowText();
-    }, 1000);
-    
 }
 
 
@@ -64,7 +60,6 @@ function load(mode) {
 					}
 					
 					post=[];//emty post[]
-					
 				}
 				if(mode==2){//mode 2 for reply
 				    eval(response);
@@ -83,7 +78,7 @@ function load(mode) {
                     reply=[]; //emty reply
                     
 				}
-				
+				chkOverFlowText();
 			}
 		}
 	});
