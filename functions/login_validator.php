@@ -6,7 +6,7 @@ $hash=trim(addslashes(htmlspecialchars($_POST['hash'])));
 $result = mysql_query("SELECT hash FROM profile WHERE studentno=$studentno");//select the username from database
 $result = mysql_fetch_row($result);
 
-$salted = $salted=md5($salt.$hash.$salt);   //salt the password to make weak password strong in hash.
+$salted = md5($salt.$hash.$salt);   //salt the password to make weak password strong in hash.
 
     if($result[0]==$salted){//login success
         $_SESSION['studentno']=$studentno;
@@ -23,7 +23,4 @@ $salted = $salted=md5($salt.$hash.$salt);   //salt the password to make weak pas
         header("Location: ?p=login");
         exit();
     }
-
-
-
 ?>
