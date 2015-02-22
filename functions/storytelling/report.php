@@ -32,7 +32,7 @@ if($_POST){ //if user did input
 <head>
 <meta http-equiv="Content-Type"content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width">
-<link rel="stylesheet" href="<?php echo $Template ?>ext/css/storytelling.css">
+<link rel="stylesheet" href="<?php echo $Template ?>storytelling/ext/storytelling.css">
 </head>
 
 <body>

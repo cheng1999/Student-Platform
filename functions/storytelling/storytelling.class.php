@@ -23,7 +23,6 @@ class Storytelling{
            //post.push([id,studentno,username,text,time,plus1,boolean plused,image])
             echo "post.push([$row[0],$row[1],'$username','$row[2]','$row[3]',$plus1,$plused,$image]);";
         }
-        echo ""; //end of the script
     }
     
     public function loadreply($statement){

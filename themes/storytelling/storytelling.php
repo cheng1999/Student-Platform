@@ -5,25 +5,34 @@
     }
 ?>
 
+<!--
+----
+reference:
+	freebuf.com,
+	sarawakmethodist.org
+----
+programmer:Lee Guo Cheng
+	facebook:fb.com/detective1999
+----
+-->
+
 <!DOCTYPE HTML>
 <html>
 <head>
-
 <?php include($Template . 'head.php') ?>
-<link rel="stylesheet" href="<?php echo $Template ?>storytelling/ext/storytelling.css">
 
 <script class="loadpost">
-var post=[],reply=[];   //ready for server give them the data of posts, the data will set by storytelling.js with eval()
-var totalposts= <?php echo mysql_fetch_row(mysql_query("select COUNT(*) from storytelling"))[0] //get total posts number from database ?>;
+var post=[],reply=[];
+var totalposts=<?php echo mysql_fetch_row(mysql_query("select COUNT(*) from storytelling"))[0] //get total posts number from database ?>;
+var username = "<?php echo mysql_fetch_row(mysql_query("SELECT username FROM profile WHERE studentno=" . $_SESSION['studentno']))[0] //get username?>";
 </script>
 
 </head>
 
 <body>
-
 <?php include($Template . 'header.php') ?>
-
 	<div id="container">
+
 			<form id="Postbox" method="post" action="?p=st_post" target="PostAction" enctype="multipart/form-data">
 		    <input id="PostID" type="hidden" value="" name="PostID">
 				<textarea id="textInput" name="text" placeholder="share somethings to school..." 
@@ -34,11 +43,9 @@ var totalposts= <?php echo mysql_fetch_row(mysql_query("select COUNT(*) from sto
 				<br>
 				<input id="attachment" type="file" name="image"><br>
 				
-				<input id="buttonSubmit" type="submit" value="Post (ctrl+enter)" onclick="chkPostingStatus()">
+				<input id="buttonSubmit" type="submit" value="Post (ctrl+enter)" onclick="Posting($(this))">
 			</form>
 			
-            <?php include($Template . 'storytelling/content.php') ?>
-            
-	</div>
+			<?php include($Template . 'storytelling/content.php') ?>
 </body>
 </html>

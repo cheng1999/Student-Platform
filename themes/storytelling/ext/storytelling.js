@@ -1,8 +1,7 @@
 var loaded=0;//this var is the post number that have loaded
-
+var loadpost_url;//ignore this var
 //initial
 window.scrollTo(0, 0);
-loadpost();
 
 //loadpost();
 $(window).scroll(function() {
@@ -12,22 +11,26 @@ $(window).scroll(function() {
 });
 
 function loadpost(){
-    load(1);//loading posts first
-    setTimeout(function(){//loading reply of posts after 1 second 
-        load(2);
-        loaded+=20;
-    }, 1000);
+    if(totalposts>=loaded){
+        //load(1) is load post, load(2) is reply(comment)
+        load(1);//loading posts first
+        setTimeout(function(){//loading reply of posts after 1 second 
+            load(2);
+            loaded+=(loaded+20>totalposts?totalposts-loaded:20);
+        }, 1000);
+    }
 }
 
 
 //----------------------------------request the posts from server----------------------------------
 var loading=document.getElementById("loading");
-var mode;
+
 function load(mode) {
     if (totalposts>loaded){
     document.getElementById("loading").style.visibility = "visible";
-	$.ajax({// ajax getting data from server
-		url: '?p=st_loadposts&load='+loaded+'&mode='+mode,
+	$.ajax({
+		url: (loadpost_url ? loadpost_url: '?p=st_loadposts')+'&load='+loaded+'&mode='+mode,   //default target is st_loadposts because loadpost_url is null, it can set by extend script
+		//fully url will like this: ?p=st_loadposts&load=20&mode=1
 		type: 'POST',
 		data: {
 			page:$(this).data('page'),
@@ -36,7 +39,7 @@ function load(mode) {
 			if(response){
 				loading.style.visibility = "hidden";
 				if(mode==1){//mode 1 for post
-					eval(response);//eval the response form server, about add post to var post, below:
+					eval(response);//eval is about add post to var post
 					//post.push([id,studentno,username,text,time,plus1,boolean plused,image])
 					
 					//append post to postlist(layout)
@@ -62,7 +65,8 @@ function load(mode) {
 					post=[];//emty post[]
 				}
 				if(mode==2){//mode 2 for reply
-				    eval(response);//eval the response form server, about add reply to var reply, below:
+				    eval(response);
+				    
 				    //reply.push([parentpostid,studentno,username,text,time])
 				    for(i=0;i<reply.length;i++){
 					    if($(".cmt#" + reply[i][0])){    //id   //if the post with indicated id existed
@@ -83,7 +87,7 @@ function load(mode) {
 	});
     }
 //if database have no more post,so this element will show "no more"
-    else if (totalposts<loaded){
+    else if (totalposts<=loaded){
     	loading.style.visibility = "hidden";
     	document.getElementById("loadstatus").innerHTML="no more";
     }
@@ -105,7 +109,7 @@ function doreply(THIS){
 }
 function plus1(THIS){
     PostID=THIS.parent().attr("id");
-    $.get("?p=st_post&mode=3&PostID="+PostID);
+    $.get("?p=st_post&mode=3&PostID="+PostID);//mode 3 call that action is plus1
     var plused = THIS.parent().find('#plused');
     plused.text("+"+(parseInt(plused.text())+1));//clear the #plused
     THIS.remove();
@@ -121,13 +125,31 @@ function report(THIS){
 
 
 //post
-function chkPostingStatus(){
-    var buttonSubmit=document.getElementById("buttonSubmit")
-    buttonSubmit.style.backgroundColor="#d9534f";
-    buttonSubmit.style.content="Posting...";
+function Posting(THIS){
+    THIS.css("backgroundColor","#d9534f");
+    THIS.val("Posting...");
     
     $("#PostAction").load(function(){
         window.location.href = "?p=storytelling";
+    });
+}
+//reply
+function Replying(THIS){
+    THIS.css("backgroundColor","#d9534f");
+    THIS.val("Posting...");
+    totalposts+=1;
+    $("#PostAction").load(function(){
+        THIS.closest(".cmt").parent().append(
+    	    "<div class=\"reply\"><div id=\"cmtauthor\">"   +
+    		"<a id=\"user\" onclick=\"invalid_action()\">" + username + "</a>"                     +   //username
+    		"<date>just now</date></div>"        +   //time
+    		"<div id=\"Pcontent\"><div id=\"text\">" + $("*#textInput")[1].value + "</div></div></div>"     //text
+			);
+		
+			//restore
+        THIS.css("backgroundColor","#42b17e");
+        THIS.val("Post (ctrl+enter)");
+        $("#hideCon .cmt").append(($("*#Postbox")[1]));
     });
 }
 

@@ -23,7 +23,7 @@ $indicated_Page=array(
     //main sidebar's tabs
     'home'          =>$Template."index.php"         ,
     'profile'       =>$Template."profile.php"       ,
-    'storytelling'  =>$Template."storytelling.php"  ,
+    'storytelling'  =>$Template."storytelling/storytelling.php"  ,
     'ask'           =>$Template.""                  ,//have not start this project yet  //at the beginning we found out something, and we ask: why ?
     'classEventBook'=>$Template.""                  ,//have not start this project yet
     'aboutus'       =>$Template."aboutus.php"       ,

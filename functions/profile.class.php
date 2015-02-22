@@ -5,27 +5,31 @@ class Profile {
     public function userInformation(){
         $result = mysql_query("SELECT * FROM profile WHERE studentno=" . $this->studentno);
         while($row = mysql_fetch_row($result)){
-            echo    "Student no:$row[0]<br>",
-                    "Username:$row[1]<br>",
-                    "Class:$row[3]<br>",
-                    "Birthday:$row[5]<br>",
-                    "Self descripe:$row[4]<br>";
+            //post.push([studentno,username,class,slef,birthday])
+            echo "profile.push([$row[0],'$row[1]','$row[3]','$row[4]',$row[5]]);";
         }
     }
     
-    public function loadST_post(){
-        $result = mysql_query("SELECT * FROM storytelling WHERE studentno=" . $this->studentno);
-        while($row = mysql_fetch_row($result)){
-        echo 	"<div class=\"cmt\" id=\"cmt-$row[0]\"><div id=\"cmtauthor\">",	//id
-	        '<n>'.mysql_fetch_row(mysql_query("SELECT username FROM profile WHERE studentno=$row[1]"))[0].'</n>',       //username
-	        "<a id=\"report\">report</a>",                                         //report
-	        "<date>$row[3]</date></div>",									//time
-	        "<div id=\"text\">$row[2]</div>";							    //text
-	        
-        if($row[4]>0){
-	        echo "<img id=\"postimg\" src=\"uploads/st_$row[4]\"></img><br class=\"clear\">";   //load image if exist
-    }}
+    public function loadST(){
+        include('storytelling.class.php');
+        $load = new Storytelling();
+        
+        //mode1 is post, mode2 is reply(comment), mode3 is +1(like) but it useless here
+        $mode   =   intval($_GET['mode']);
+        $start  =   intval($_GET['load']);
+        $loadperTime=20;
+        
+        if($mode==1){ //post
+	        $statement="WHERE studentno=" . $this->studentno . " ORDER BY id DESC LIMIT $start,$loadperTime";			//$condition will use for mysql command
+	        $load->loadpost($statement);
+        }
+        else if($mode==2){ //reply
+	        $statement="WHERE parentid BETWEEN $start AND $start+$loadperTime" ;
+	        $load->loadreply($statement);
+        }
+        else{//if invalid $_GET will exit
+            exit();
+        }
     }
-
 }
 ?>
