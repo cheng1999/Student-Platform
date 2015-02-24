@@ -56,10 +56,8 @@ function load(mode) {
 					        
 					        (post[i][7] ? ("<img id=\"postimg\" onclick=\"bigimg($(this))\" src=\"uploads/" + post[i][7] + "\"></img><br>") : "") +  //image     //if have image return image filename
 					        (post[i][6] ? ("<a id=\"plus1\" onclick=\"plus1($(this))\"></a>") : "")    +   //plus1(like) button    //if user did like this post, no button for use to press
-					        "<a id=\"reply\" onclick=\"doreply($(this))\"></a><br class=\"clear\"></div>"
+					        "<a id=\"reply\" onclick=\"doreply($(this))\"></a><div id=\"ReplyList\"></div><br class=\"clear\"></div>"
 					    );
-					    
-					    
 					}
 					
 					post=[];//emty post[]
@@ -70,7 +68,7 @@ function load(mode) {
 				    //reply.push([parentpostid,studentno,username,text,time])
 				    for(i=0;i<reply.length;i++){
 					    if($(".cmt#" + reply[i][0])){    //id   //if the post with indicated id existed
-					        $(".cmt#" + reply[i][0]).append(
+					        $(".cmt#" + reply[i][0]).find("#ReplyList").append(
     					        "<div class=\"reply\"><div id=\"cmtauthor\">"   +
     					        "<a id=\"user\" href=\"?p=profile&studentno=" + reply[i][1] + "\">" + reply[i][2] + "</a>"                     +   //username
     					        "<date>" + reply[i][4] + "</date></div>"        +   //time
@@ -103,9 +101,11 @@ function readmore(THIS){
     THIS.remove();
 }
 function doreply(THIS){
+    THIS.parent().find("#ReplyList").show();
     PostID=THIS.parent().attr("id");
     THIS.parent().append($('.cmt #Postbox'));
     $(".cmt #Postbox #PostID").attr('value',''+PostID);
+    chkOverFlowText();
 }
 function plus1(THIS){
     PostID=THIS.parent().attr("id");
@@ -156,9 +156,9 @@ function Replying(THIS){
 //text overflow;
 function chkOverFlowText(){
     $("*#readmore").remove();
-    for(var i=0;i<$("*#Pcontent").length;i++){
+    for(var i=0;i<$("*#text").length;i++){
         if($("*#text")[i].scrollHeight >  $('#text').innerHeight()){
-            $("*#Pcontent")[i].innerHTML += "<a id=\"readmore\" onclick=\"readmore($(this))\">read more</a>";
+            $("*#text")[i].closest("#Pcontent").innerHTML += "<a id=\"readmore\" onclick=\"readmore($(this))\">read more</a>";
         }
     }
 }
