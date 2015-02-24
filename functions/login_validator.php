@@ -10,7 +10,6 @@ $salted = md5($salt.$hash.$salt);   //salt the password to make weak password st
 
     if($result[0]==$salted){//login success
         $_SESSION['studentno']=$studentno;
-        
         if($_SESSION['request_uri']){   //if someone request uri but have not logged,the have to  logging first,the uri will store in session and after logged here will refer to there
             header("Location: " . $_SESSION['request_uri']);
         }
