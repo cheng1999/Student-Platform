@@ -24,7 +24,7 @@ $indicated_Page=array(
     'home'          =>$Template."index.php"         ,
     'profile'       =>$Template."profile.php"       ,
     'storytelling'  =>$Template."storytelling/storytelling.php"  ,
-    'ask'           =>$Template.""                  ,//have not start this project yet  //at the beginning we found out something, and we ask: why ?
+    'ask'           =>$Template."ask/ask.php"       ,//at the beginning we found out something, and we ask: why ?
     'classEventBook'=>$Template.""                  ,//have not start this project yet
     'aboutus'       =>$Template."aboutus.php"       ,
     
@@ -36,5 +36,9 @@ $indicated_Page=array(
     'st_post'          =>ROOT_DIR."functions/storytelling/post.php"        ,
     'st_loadposts'     =>ROOT_DIR."functions/storytelling/loadposts.php"   ,
     'st_report'        =>ROOT_DIR."functions/storytelling/report.php"      ,
+    
+    //ask
+    'ask_ask'       =>ROOT_DIR."functions/ask/ask.php"      ,
+    'ask_load'      =>ROOT_DIR."functions/ask/load.php"     ,
     );
 ?>

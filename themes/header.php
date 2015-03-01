@@ -15,6 +15,9 @@
 				<a href="?p=storytelling">说故事</a>
 			</li>
 			<li>
+				<a href="?p=ask">ask & answer</a>
+			</li>
+			<li>
 				<a href="#">班级事件簿</a>
 			</li>
 			<li>

@@ -18,10 +18,10 @@ class Storytelling{
             //image
             $image = (($row[4]>0) ? ("'st_".$row[4]."'") : 'null');//if exist image then return image filename or else return null
             $plused = (in_array($_SESSION['studentno'],$plus1studentno) ? 0 : 1);//if user liked the post, no more like button for him
-           
+            $reply = mysql_fetch_row(mysql_query("SELECT COUNT(*) FROM storytelling_reply WHERE parentid=$row[0]"))[0];
            //to generate javascript for client to run. script is about the data of post in array type
-           //post.push([id,studentno,username,text,time,plus1,boolean plused,image])
-            echo "post.push([$row[0],$row[1],'$username','$row[2]','$row[3]',$plus1,$plused,$image]);";
+           //post.push([id,studentno,username,text,time,plus1,boolean plused,image,replys])
+            echo "post.push([$row[0],$row[1],'$username','$row[2]','$row[3]',$plus1,$plused,$image,$reply]);";
         }
     }
     

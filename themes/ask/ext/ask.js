@@ -40,7 +40,7 @@ function load(mode) {
 				loading.style.visibility = "hidden";
 				if(mode==1){//mode 1 for post
 					eval(response);//eval is about add post to var post
-					//post.push([id,studentno,username,text,time,plus1,boolean plused,image,replys])
+					//post.push([id,studentno,username,text,time,plus1,boolean plused,image])
 					
 					//append post to postlist(layout)
 					for(i=0;i<post.length;i++){
@@ -56,8 +56,7 @@ function load(mode) {
 					        
 					        (post[i][7] ? ("<img id=\"postimg\" onclick=\"bigimg($(this))\" src=\"uploads/" + post[i][7] + "\"></img><br>") : "") +  //image     //if have image return image filename
 					        (post[i][6] ? ("<a id=\"plus1\" onclick=\"plus1($(this))\"></a>") : "")    +   //plus1(like) button    //if user did like this post, no button for use to press
-					        "<a id=\"reply\" onclick=\"doreply($(this))\">reply("+post[i][8]+")</a><div id=\"ReplyList\">"    +
-					        "</div><br class=\"clear\"></div>"
+					        "<a id=\"reply\" onclick=\"doreply($(this))\"></a><div id=\"ReplyList\"></div><br class=\"clear\"></div>"
 					    );
 					}
 					
@@ -159,7 +158,7 @@ function chkOverFlowText(){
     $("*#readmore").remove();
     for(var i=0;i<$("*#text").length;i++){
         if($("*#text")[i].scrollHeight >  $('#text').innerHeight()){
-            $("*#text")[i].parentNode.innerHTML += "<a id=\"readmore\" onclick=\"readmore($(this))\">read more</a>";
+            $("*#text")[i].closest("#Pcontent").innerHTML += "<a id=\"readmore\" onclick=\"readmore($(this))\">read more</a>";
         }
     }
 }
