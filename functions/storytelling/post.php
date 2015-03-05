@@ -50,7 +50,7 @@ else{
 	    if(is_uploaded_file($image['tmp_name'])){//if have image
 	        $imageid=mysql_fetch_row(mysql_query("SELECT MAX(imageid) FROM storytelling"))[0]+1;//the imageid to insert must lager that the max imageid in database to prevent no used id will reuse
 	        
-	        include('processimg.php');//upload image
+	        include('processimg.php');//process uploaded image
 	        if(!@mysql_query("INSERT INTO storytelling (studentno, text , time , imageid)VALUES( $studentno, '$text', '$time',$imageid)"))//write into database with image data
 			    die( mysql_error ());
 	    }

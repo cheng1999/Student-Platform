@@ -28,7 +28,7 @@ input {
     text-align:center;
 }
 
-#input {
+.input,#input {
     color: #444444;
     font-size: 14px;
 }

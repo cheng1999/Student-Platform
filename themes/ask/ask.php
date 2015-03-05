@@ -22,19 +22,21 @@ programmer:Lee Guo Cheng
 <?php include($Template . 'head.php') ?>
 
 <script class="loadpost">
-var post=[],reply=[];
-var totalposts=<?php echo mysql_fetch_row(mysql_query("select COUNT(*) from storytelling"))[0] //get total posts number from database ?>;
-var username = "<?php echo mysql_fetch_row(mysql_query("SELECT username FROM profile WHERE studentno=" . $_SESSION['studentno']))[0] //get username?>";
+var questions=[];
+var totalquestions=<?php echo mysql_fetch_row(mysql_query("select COUNT(*) from ask_question"))[0]; //get total posts number from database ?>;
+var username = "<?php echo mysql_fetch_row(mysql_query("SELECT username FROM profile WHERE studentno=" . $_SESSION['studentno']))[0]; //get username?>";
 </script>
 
 </head>
 
 <body>
-<?php include($Template . 'header.php') ?>
+<?php include($Template . 'nav.php') ?>
 	<div id="container">
 
-			<form id="Postbox" method="post" action="?p=ask_ask" target="PostAction" enctype="multipart/form-data">
-		    <input id="PostID" type="hidden" value="" name="PostID">
+			<form id="Postbox" method="post" action="?p=ask_ask&mode=1" target="PostAction" enctype="multipart/form-data">
+		    <input id="questionID" type="hidden" value="" name="PostID">
+		        <span style="background:#eee;color:#999">可使用标签:{ #课外 | #物理 #化学 #生物 | #数学 #高数 #地理 #历史 #电子 | #华文 #国文 #英文 | #经济 #商业 #簿记 | #电脑 #美术}</span>
+		        <br><br>
 		        <span id="charlength">50 more words left until limited char</span>
 				<textarea id="textInput" name="summary" height="50px" placeholder="Summary of your question...."  maxlength="50" style="height:50px;margin-bottom:20px;"
 				onkeyup="$('#charlength').text((50-this.textLength)+' more words left until limited char');

@@ -9,6 +9,7 @@ if (!preg_match( '/gif|png|x-png|jpeg/', $image['type'])||!getimagesize($image['
     //if (getimagesize($image['tmp_name'])!=false){
 
     echo $image['tmp_name'];
-    if(!@move_uploaded_file($image['tmp_name'], ROOT_DIR . "uploads/st_" . $imageid))
+    if(!@move_uploaded_file($image['tmp_name'], ROOT_DIR . "uploads/ask_" . $imageid))
         die('<script>alert("error")</script>');
+        
 ?>

@@ -12,7 +12,7 @@ programmer:Lee Guo Cheng
 
 <body>
 <?php 
-include("header.php");
+include("nav.php");
 include("content.php")
 ?>
 

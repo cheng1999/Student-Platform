@@ -2,6 +2,8 @@ var loaded=0;//this var is the post number that have loaded
 var loadpost_url;//ignore this var
 //initial
 window.scrollTo(0, 0);
+loadpost();
+window.scrollTo(0, 0);
 
 //loadpost();
 $(window).scroll(function() {

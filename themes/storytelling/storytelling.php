@@ -30,7 +30,7 @@ var username = "<?php echo mysql_fetch_row(mysql_query("SELECT username FROM pro
 </head>
 
 <body>
-<?php include($Template . 'header.php') ?>
+<?php include($Template . 'nav.php') ?>
 	<div id="container">
 
 			<form id="Postbox" method="post" action="?p=st_post" target="PostAction" enctype="multipart/form-data">

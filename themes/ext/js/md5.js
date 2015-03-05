@@ -3,7 +3,6 @@ function enc(form)
         if (form.password.value != '')
         {
             form.hash.value = MD5(form.password.value);
-            form.password.value = '';
         }
         
 }

@@ -13,8 +13,8 @@ if(@$_SESSION['studentno']){
     <div id="box">
     <div id="logo"></div>
     <form method="post" action="?p=validlogin" onsubmit="enc(this)">
-        <input type="text" autofocus placeholder="student no" name="studentno" id="input">
-        <input type="password" placeholder="password" name="password" id="input">
+        <input type="text" autofocus placeholder="student no" name="studentno" class="input">
+        <input type="password" placeholder="password" id="password" class="input">
         <input type="hidden" name="hash" value="" />
         <input type="submit" value="Log In" id="button">
     </form>
