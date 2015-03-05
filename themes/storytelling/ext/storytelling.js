@@ -1,5 +1,5 @@
 var loaded=0;//this var is the post number that have loaded
-var loadpost_url;//ignore this var
+
 //initial
 window.scrollTo(0, 0);
 loadpost();
@@ -13,7 +13,7 @@ $(window).scroll(function() {
 });
 
 function loadpost(){
-    if(totalposts>=loaded){
+    if(totalposts>=loaded){//var totalposts is set at <script>'id "initial"
         //load(1) is load post, load(2) is reply(comment)
         load(1);//loading posts first
         setTimeout(function(){//loading reply of posts after 1 second 
@@ -31,7 +31,7 @@ function load(mode) {
     if (totalposts>loaded){
     document.getElementById("loading").style.visibility = "visible";
 	$.ajax({
-		url: (loadpost_url ? loadpost_url: '?p=st_loadposts')+'&load='+loaded+'&mode='+mode,   //default target is st_loadposts because loadpost_url is null, it can set by extend script
+		url: (load_url ? load_url: '?p=st_loadposts')+'&load='+loaded+'&mode='+mode,   //var load_url also set at <script>'id "initial"
 		//fully url will like this: ?p=st_loadposts&load=20&mode=1
 		type: 'POST',
 		data: {

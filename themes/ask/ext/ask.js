@@ -41,6 +41,7 @@ function loadquestions() {
 					    }
     					
     					for(i=questions.length-1;i>=0;i--){
+    					     $("*.question-summary")[i].id=questions[i].id;
                             $("*.status-question")[i].innerHTML=(questions[i].finalanswer ? '<br>Solved' : '<br>Unsolve');
                             $("*.status-answer")[i].innerHTML=questions[i].answers + '<br>Answers';
                             $("*.views")[i].innerHTML=(questions[i].views ? questions[i].views : '0') + '<br>Views';
@@ -52,7 +53,6 @@ function loadquestions() {
     					
 					    //questions=[];//emty post[]
 				    }
-			    chkOverFlowText();
 		    }
 	    });
     }
@@ -66,11 +66,10 @@ function loadquestions() {
 
 //-----------------------------------------function()--------------------------------------------------
 //some action listener
-var PostID;
+var questionID;
 
-function readmore(THIS){
-    THIS.closest("#Pcontent").find("#text").css({"maxHeight":"none","overflow":"auto"});
-    THIS.remove();
+function loaddetail(id){
+    window.location.href="?p=ask&questionid="+id;
 }
 function doreply(THIS){
     THIS.parent().find("#ReplyList").show();

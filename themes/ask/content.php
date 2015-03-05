@@ -8,7 +8,7 @@
 			
 <div id="hideCon" style="display:none">
     <div class="questions">
-        <div class="question-summary" id="" onclick="loaddetail($(this).id)">
+        <div class="question-summary" id="" onclick="loaddetail($(this).attr('id'))">
             <div class="question-review">
                 <div class="status-question block"></div>
                 <div class="status-answer block"></div>

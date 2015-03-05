@@ -30,7 +30,7 @@ include(ROOT_DIR."Configure/PageVar.php");
 if(@$indicated_Page[$_GET['p']]){
     //the file containing the target which is $_GET['p'] indicate for
     
-    include $indicated_Page[$_GET['p']];//include target page
+    include($indicated_Page[$_GET['p']]);//include target page
 }
 else{//loading homepage if $_GET require nothing
     include(ROOT_DIR.$Template."index.php"); 

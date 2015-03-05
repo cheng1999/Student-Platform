@@ -20,7 +20,7 @@
 $indicated_Page=array(
     //request name: target web path
     
-    //main sidebar's tabs
+    //main tabs in nav
     'home'          =>$Template."index.php"         ,
     'profile'       =>$Template."profile.php"       ,
     'storytelling'  =>$Template."storytelling/storytelling.php"  ,
