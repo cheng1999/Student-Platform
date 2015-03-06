@@ -5,7 +5,6 @@ window.scrollTo(0, 0);
 loadpost();
 window.scrollTo(0, 0);
 
-//loadpost();
 $(window).scroll(function() {
     if ($(window).scrollTop() + $(window).height() == $(document).height()){
 	    loadpost();
@@ -31,7 +30,7 @@ function load(mode) {
     if (totalposts>loaded){
     document.getElementById("loading").style.visibility = "visible";
 	$.ajax({
-		url: (load_url ? load_url: '?p=st_loadposts')+'&load='+loaded+'&mode='+mode,   //var load_url also set at <script>'id "initial"
+		url: load_url+'&load='+loaded+'&mode='+mode,   //var load_url also set at <script>'id "initial"
 		//fully url will like this: ?p=st_loadposts&load=20&mode=1
 		type: 'POST',
 		data: {

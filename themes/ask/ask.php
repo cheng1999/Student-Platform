@@ -3,56 +3,62 @@
         login_before_access();
         exit();
     }
+    
+    //detemine the vars' values for client require
+    if(@$_GET['studentno']){
+        $load_url = "?p=ask_load&mode=1&studentno=".intval($_GET['studentno']);
+        $totalquestions = mysql_fetch_row(mysql_query("SELECT COUNT(*) FROM ask_question WHERE studentno=".intval($_GET['studentno'])))[0];
+        $detail = 0;
+    }
+    else if(@$_GET['questionid']){
+        $load_url = "?p=ask_load&mode=2&questionid=".intval($_GET['questionid']);
+        $totalquestions = 1;
+        $detail = 1;
+    }
+    else if(@$_GET['tag']){
+        $load_url = "?p=ask_load&mode=1&tag=".addslashes($_GET['tag']);
+        $totalquestions = mysql_fetch_row(mysql_query("SELECT COUNT(*) FROM ask_question WHERE summary LIKE \"%#".addslashes($_GET['tag'])."%\""))[0];
+        $detail = 0;
+    }
+    else{
+        $load_url = "?p=ask_load&mode=1";
+        $totalquestions = mysql_fetch_row(mysql_query("SELECT COUNT(*) FROM ask_question"))[0];
+        $detail = 0;
+    }
+    
+    $username = mysql_fetch_row(mysql_query("SELECT username FROM profile WHERE studentno=" . $_SESSION['studentno']))[0];//get username
 ?>
-
-<!--
-----
-reference:
-	freebuf.com,
-	sarawakmethodist.org
-----
-programmer:Lee Guo Cheng
-	facebook:fb.com/detective1999
-----
--->
 
 <!DOCTYPE HTML>
 <html>
 <head>
 <?php include($Template . 'head.php') ?>
 
-<script class="loadpost">
-var questions=[];
-var totalquestions=<?php echo mysql_fetch_row(mysql_query("select COUNT(*) from ask_question"))[0]; //get total posts number from database ?>;
-var username = "<?php echo mysql_fetch_row(mysql_query("SELECT username FROM profile WHERE studentno=" . $_SESSION['studentno']))[0]; //get username?>";
+<script class="initial">
+var questions=[],answers=[],dicuss=[];
+var questionid = "<?php echo @$_GET['questionid'] ?>"
+var load_url = "<?php echo $load_url ?>";
+var totalquestions = <?php echo $totalquestions ?>;
+var detail = <?php echo $detail ?> //the boolean to tell javascript load summary or detail
+var username = "<?php echo $username ?>";
 </script>
 
 </head>
 
 <body>
 <?php include($Template . 'nav.php') ?>
-	<div id="container">
+<div id="container">
+		
+<?php
 
-			<form id="Postbox" method="post" action="?p=ask_ask&mode=1" target="PostAction" enctype="multipart/form-data">
-		    <input id="questionID" type="hidden" value="" name="PostID">
-		        <span style="background:#eee;color:#999">可使用标签:{ #课外 | #物理 #化学 #生物 | #数学 #高数 #地理 #历史 #电子 | #华文 #国文 #英文 | #经济 #商业 #簿记 | #电脑 #美术}</span>
-		        <br><br>
-		        <span id="charlength">50 more words left until limited char</span>
-				<textarea id="textInput" name="summary" height="50px" placeholder="Summary of your question...."  maxlength="50" style="height:50px;margin-bottom:20px;"
-				onkeyup="$('#charlength').text((50-this.textLength)+' more words left until limited char');
-					"></textarea>
-					
-				<textarea id="textInput" name="detail" placeholder="More details to your question...."
-				onkeydown="if(event.ctrlKey&&event.keyCode==13){
-					this.parentNode.buttonSubmit.click();
-					return false};
-					"></textarea>
-				<br>
-				<input id="attachment" type="file" name="image"><br>
-				
-				<input id="buttonSubmit" type="submit" value="Post (ctrl+enter)" onclick="Posting($(this))">
-			</form>
-			
-			<?php include($Template . 'ask/content.php') ?>
+//if not search a person post or just load an indecate post, will not load useless post form
+if(@$_GET['studentno']||@$_GET['questionid']){}
+else{
+    include('askform.php');
+}
+
+include($Template . 'ask/content.php');
+?>
+
 </body>
 </html>

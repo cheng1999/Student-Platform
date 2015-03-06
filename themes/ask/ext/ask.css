@@ -30,7 +30,6 @@
 	
 	#Postbox {
 		margin:auto;
-		width:100%;
 	}
 	
 	#Postbox p {
@@ -105,7 +104,7 @@
 	
 	div#PostList {
 		margin-top: 60px;
-		padding: 10px;
+		margin-bottom:60px;
 	}
 	
 	.cmt, #loadstatus{
@@ -157,7 +156,7 @@
 	    color:#676767;
 	}
 	
-	#user {
+	#user,.user {
 	    text-decoration:none;
 		font-weight:bold;
 		color: #3B3B3B;
@@ -166,7 +165,7 @@
 		cursor:pointer;
 	}
 	
-	#user:hover {
+	#user:hover,.user:hover {
 	    text-decoration:underline;
 	}
 	
@@ -196,7 +195,7 @@
 		float:right;
 	}
 	
-	#postimg {
+	#postimg, .postimg {
 	    max-width:100%;
 	    max-height:200px;
 	    margin-bottom:5px;

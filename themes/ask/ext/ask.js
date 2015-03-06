@@ -1,5 +1,5 @@
 var loaded=0;//this var is the post number that have loaded
-var load_url;//ignore this var
+
 //initial
 window.scrollTo(0, 0);
 loadquestions();
@@ -19,42 +19,31 @@ $(window).scroll(function() {
 var loading=document.getElementById("loading");
 
 function loadquestions() {
-    if (totalquestions>loaded){
+    if (totalquestions>loaded){//var totalquestions is set at <script>'id "initial"
         document.getElementById("loading").style.visibility = "visible";
-    	$.ajax({
-	    	url: (load_url ? load_url: '?p=ask_load')+'&load='+loaded+'&mode=1',   //default target is st_loadposts because loadpost_url is null, it can set by extend script
-    		//fully url will like this: ?p=st_loadposts&load=20&mode=1
-		    type: 'POST',
-		    data: {
-    			page:$(this).data('page'),
+        $.ajax({
+            url: load_url+'&load='+loaded,   //var load_url also set at <script>'id "initial"
+            //fully url will like this: ?p=ask_load&load=20&mode=1
+            type: 'POST',
+            data: {
+                page:$(this).data('page'),
 		    },
 		    success: function(response){
-    			if(response){
+                if(response){
 				    loading.style.visibility = "hidden";
-                        eval(response);//eval is about add post to var post
-    					
-					    //append post to postlist(layout)
-                        for(i=0;i!=questions.length;i++){
-                            $("#PostList").append(
-                                $(".questions").html()
-                            );
-					    }
-    					
-    					for(i=questions.length-1;i>=0;i--){
-    					     $("*.question-summary")[i].id=questions[i].id;
-                            $("*.status-question")[i].innerHTML=(questions[i].finalanswer ? '<br>Solved' : '<br>Unsolve');
-                            $("*.status-answer")[i].innerHTML=questions[i].answers + '<br>Answers';
-                            $("*.views")[i].innerHTML=(questions[i].views ? questions[i].views : '0') + '<br>Views';
-                            $("*.summary .h3")[i].innerHTML=questions[i].summary;
-                        //  $("*.summary .tags")[i].innerHTML="";
-                            $("*.summary .asker")[i].innerHTML=questions[i].username;
-                            $("*.summary .time")[i].innerHTML=questions[i].time;
-    					}
-    					
-					    //questions=[];//emty post[]
-				    }
-		    }
-	    });
+                        eval(response);//eval is about add questions' summary to var questions
+
+                        if(!detail){//if not load the detail of question
+                            loadsummary();
+                        }
+                        else{
+                            loaddetail();
+                        }
+
+                        //questions=[];//emty questions[]
+                }
+            }
+        });
     }
     //if database have no more post,so this element will show "no more"
     else if (totalquestions<=loaded){
@@ -66,34 +55,50 @@ function loadquestions() {
 
 //-----------------------------------------function()--------------------------------------------------
 //some action listener
+
+function loadsummary(){
+    //append to postlist(layout)
+    for(i=0;i!=questions.length;i++){
+        $("#PostList").append(
+            $(".questions").html()
+        );
+    }
+    for(i=questions.length-1;i>=0;i--){
+        $("*.question-summary")[i].id=questions[i].id;
+        $("*.status-question")[i].innerHTML=(questions[i].finalanswer ? '<br><b>Solved</b>' : '<br>Unsolve');
+        $("*.status-answer")[i].innerHTML=questions[i].answers + '<br>Answers';
+        $("*.views")[i].innerHTML=(questions[i].views ? questions[i].views : '0') + '<br>Views';
+        $("*.summary .h3")[i].innerHTML=questions[i].summary;
+        //  $("*.summary .tags")[i].innerHTML="";
+        $("*.summary .asker")[i].innerHTML=questions[i].username;
+        $("*.summary .time")[i].innerHTML=questions[i].time;
+    }
+}
+function loaddetail(){
+    $("#PostList").append(
+        $("#question-detail").html()
+    )
+    //load the detail of question
+    $(".status")[0].innerHTML=(questions[0].finalanswer ? '<b>Solved</b>' : 'Unsolve');
+    $(".asker .user").attr("href","?p=profile&studentno="+questions[0].studentno);
+    $(".asker .user")[0].innerHTML=questions[0].username;
+    //$("date")[0].innerHTML=questions[0].time;
+    $(".detail-summary")[0].innerHTML=questions[0].summary;
+    $(".detail-detail")[0].innerHTML=questions[0].detail;
+    $(".question-img").attr("src","uploads/"+questions[0].image);
+    //load answerform
+    $("#PostList").append(
+        $(".answerbox").html()
+    )
+    //load answer
+    //load dicuss
+}
+
 var questionID;
 
-function loaddetail(id){
+function godetail(id){
     window.location.href="?p=ask&questionid="+id;
 }
-function doreply(THIS){
-    THIS.parent().find("#ReplyList").show();
-    PostID=THIS.parent().attr("id");
-    THIS.parent().append($('.cmt #Postbox'));
-    $(".cmt #Postbox #PostID").attr('value',''+PostID);
-    chkOverFlowText();
-}
-function plus1(THIS){
-    PostID=THIS.parent().attr("id");
-    $.get("?p=st_post&mode=3&PostID="+PostID);//mode 3 call that action is plus1
-    var plused = THIS.parent().find('#plused');
-    plused.text("+"+(parseInt(plused.text())+1));//clear the #plused
-    THIS.remove();
-}
-function bigimg(THIS){
-    THIS.css("maxHeight","none");
-}
-function report(THIS){
-    POSTID=(THIS.parent().parent().attr("id"));
-    window.location.href="?p=st_report&PostID="+POSTID;
-}
-
-
 
 //post
 function Posting(THIS){
@@ -104,26 +109,10 @@ function Posting(THIS){
         window.location.href = "?p=ask";
     });
 }
-//reply
-function Replying(THIS){
-    THIS.css("backgroundColor","#d9534f");
-    THIS.val("Posting...");
-    totalposts+=1;
-    $("#PostAction").load(function(){
-        THIS.closest(".cmt").parent().append(
-    	    "<div class=\"reply\"><div id=\"cmtauthor\">"   +
-    		"<a id=\"user\" onclick=\"invalid_action()\">" + username + "</a>"                     +   //username
-    		"<date>just now</date></div>"        +   //time
-    		"<div id=\"Pcontent\"><div id=\"text\">" + $("*#textInput")[1].value + "</div></div></div>"     //text
-			);
-		
-			//restore
-        THIS.css("backgroundColor","#42b17e");
-        THIS.val("Post (ctrl+enter)");
-        $("#hideCon .cmt").append(($("*#Postbox")[1]));
-    });
-}
 
+function bigimg(THIS){
+    THIS.css("maxHeight","none");
+}
 //text overflow;
 function chkOverFlowText(){
     $("*#readmore").remove();

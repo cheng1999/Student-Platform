@@ -7,24 +7,25 @@ $studentno=$_SESSION['studentno'];
 @$mode=intval($_GET['mode']);//the indecate ask , answer , agree answer , or just view
 @$questionID =intval($_GET['questionID']);
 
-//plus1
-//intval() to prevent blind sql injection
-
-if($mode==1){  //ask question
-/*
- *ask question data process and insert into database
- * -----------------------check and fix some requirement-----------------------
- */
 //initail the variable
 @$summary   = $_POST['summary'];//the summary of question
 @$detail   = $_POST['detail'];//detail to the question
 @$image = $_FILES['image'];//image to let asker ask in easy way
 
+
+if($mode==1){  //ask question
+
+/*
+ *ask question data process and insert into database
+ * -----------------------check and fix some requirement-----------------------
+ */
+
 //filtering the input
 $summary=addslashes(htmlspecialchars($summary));
 $detail=addslashes(htmlspecialchars($detail));
 
-    if (trim($summary)==""){
+    if (trim($summary)==""||str_word_count($summary)>50){
+        echo '<script>alert('.str_word_count($summary).')</script>';
         exit();
     }
 
@@ -32,6 +33,7 @@ $detail=addslashes(htmlspecialchars($detail));
  * -----------------------the requirement is passed, edit text and fill date----------------
  */
     else{
+        
         $change = array("\n", "\r\n", "\r");
         $summary = str_replace($change, '<br>', $summary);    //change enter <br>
         
@@ -48,10 +50,11 @@ $detail=addslashes(htmlspecialchars($detail));
 
             include('processimg.php');//process uploaded image
             if(!@mysql_query("INSERT INTO ask_question (studentno, summary , detail , time , imageid)VALUES( $studentno, '$summary', '$detail', '$time', $imageid)"));//write into database with image data
-                die(mysql_error);
+                die("<script>alert('".mysql_error()."')</script>");
         }
         else{//not image
-            if(!@mysql_query("INSERT INTO ask_question (studentno, summary , detail , time)VALUES( $studentno, '$summary', '$detail', '$time')"));
+            if(!@mysql_query("INSERT INTO ask_question (studentno, summary , detail , time)VALUES( $studentno, '$summary', '$detail', '$time')"))
+                die("<script>alert('".mysql_error()."')</script>");
         }
     }
 }
@@ -61,7 +64,7 @@ $detail=addslashes(htmlspecialchars($detail));
  */
     if ($mode==2){ //answer question
 	//answer		(questionID!=0 && questionID is the id of question to answer)
-		if(!@mysql_query("INSERT INTO ask_answer (questionid, id ,studentno, answer , time)VALUES( $PostID, $studentno, '$text', '$time')"))
+		if(!@mysql_query("INSERT INTO ask_answer (questionid, id ,studentno, answer , time)VALUES( $questionID, $studentno, '$text', '$time')"))
             die( mysql_error ());
         }
         

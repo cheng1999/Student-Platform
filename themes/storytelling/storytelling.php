@@ -18,6 +18,7 @@
         $load_url = "?p=st_loadposts";
         $totalposts = mysql_fetch_row(mysql_query("SELECT COUNT(*) FROM storytelling"))[0];
     }
+    
     $username = mysql_fetch_row(mysql_query("SELECT username FROM profile WHERE studentno=" . $_SESSION['studentno']))[0];//get username
 ?>
 
@@ -29,7 +30,7 @@
 
 <script class="initial">
 var post=[],reply=[];
-var load_url = <?php echo "\"".$load_url."\"" ?>;
+var load_url = "<?php echo $load_url ?>";
 var totalposts = <?php echo $totalposts ?>;
 var username = "<?php echo $username ?>";
 </script>

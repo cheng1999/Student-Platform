@@ -27,7 +27,7 @@ if(@$studentno){
     exit();
     }
 }
-else if(@$_GET['postid']){
+else if(@$postid){
     $mode1_statement="WHERE id=$postid";
     $mode2_statement="WHERE parentid=$postid";
 }

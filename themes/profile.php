@@ -38,5 +38,8 @@
     <div id="storytelling">
         <a href="?p=storytelling&studentno=<?php echo $studentno;?>">Ta的分享</a>
     </div>
+    <div id="ask">
+        <a href="?p=ask&studentno=<?php echo $studentno;?>">Ta的问题</a>
+    </div>
 </div>
 </body>
