@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="<?php echo $Template ?>ask/ext/ask.css">
 <link rel="stylesheet" href="<?php echo $Template ?>ask/ext/summary.css">
 
-<iframe id="PostAction" name="PostAction" style="display:none" src="?p=st_post" ></iframe>
+<iframe id="PostAction" name="PostAction" style="display:none" ></iframe>
 <div id="PostList">
 </div>
 <center id="loadstatus" style="color:#4D4D4D;font-weight:bold;"><img src="<?php echo $Template?>ask/ext/loading.gif" id="loading"></img></center>
@@ -24,22 +24,26 @@
     <div id="question-detail">
         <div id="" class="question-detail">
             <div class="summary">
-                <a class="status"></a>
+                <a class="status light"></a>
                 <br>
                 <div class="detail-summary"></div>
             </div>
-            
-            <div class="detail-detail"></div>
-            <img class="question-img" src="">
+            <div class="detail">
+                <a class="light">Detail:</a>
+                <div class="detail-detail"></div>
+                <img class="question-img" src="">
+            </div>
             <div class="asker">Asker: <a class="user" href=""></a></div>
             <br>
             <br class="clear">
         </div>
     </div>
+    <div id="answer">
+    </div>
     
     <div class="answerbox">
-        <form id="Postbox" style="height:90vh" class="cmt" method="post" target="PostAction" action="?p=ask_ask&mode=2">
-            <input id="questionID" type="hidden" value="" name="PostID">
+        <form id="Postbox" style="height:90vh" class="cmt" method="post" target="PostAction" action="?p=ask_ask&mode=2" enctype="multipart/form-data">
+            <input id="questionID" type="hidden" value="" name="questionid">
             <br><br>
 				<textarea id="textInput" style="height:60vh" name="answer" placeholder="Hi liberal, we need your answer! :D"
 				onkeydown="if(event.ctrlKey&&event.keyCode==13){
@@ -49,7 +53,7 @@
 				<br>
 				<input id="attachment" type="file" name="image"><br>
 				
-				<input id="buttonSubmit" type="submit" value="Post (ctrl+enter)" onclick="Posting($(this))">
+				<input id="buttonSubmit" type="submit" value="Post (ctrl+enter)" onclick="Answering($(this))">
 			</form>
 	</div>
 </div>

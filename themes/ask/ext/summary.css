@@ -74,14 +74,14 @@
     display: inline-block;
     float: left;
     width:100%;
-    margin-bottom:40px;
 }
 .summary .status{
     background-color: #ddd;
+}
+.light{
     color: #888;
     float:left;
     font-size: 30px;
-    text-align: center;
     width: 100px;
     display:inline-block;
     margin:20px;
@@ -96,7 +96,9 @@
 }
 .question-detail .detail-detail{
     color:#4d4d4d;
-    margin-bottom:30px;
+    margin:30px;
+    width:100%;
+    float:left;
 }
 .question-detail .asker{
     font-size:30px;

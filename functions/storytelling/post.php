@@ -8,7 +8,7 @@ $studentno=$_SESSION['studentno'];
 @$text   = $_POST['text'];
 @$plus1Target  = $_GET['PostID']; //in some condition this will null
 
-@$image = $_FILES['image'];
+//@$image = $_FILES['image'];
 
 //plus1
 //intval() to prevent blind sql injection
@@ -47,10 +47,10 @@ else{
  */
 	//post	($PostID==1)
 	if($PostID==0){
-	    if(is_uploaded_file($image['tmp_name'])){//if have image
+	    if(is_uploaded_file(@$_FILES['image']['tmp_name'])){//if have image
 	        $imageid=mysql_fetch_row(mysql_query("SELECT MAX(imageid) FROM storytelling"))[0]+1;//the imageid to insert must lager that the max imageid in database to prevent no used id will reuse
 	        
-	        include('processimg.php');//process uploaded image
+	        processimage($_FILES['image'] , "st_".$imageid);//process uploaded image function in ROOT_DIR functions/functions.php
 	        if(!@mysql_query("INSERT INTO storytelling (studentno, text , time , imageid)VALUES( $studentno, '$text', '$time',$imageid)"))//write into database with image data
 			    die( mysql_error ());
 	    }

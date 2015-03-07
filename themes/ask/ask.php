@@ -35,7 +35,7 @@
 <?php include($Template . 'head.php') ?>
 
 <script class="initial">
-var questions=[],answers=[],dicuss=[];
+var questions=[],answer=[],dicuss=[];
 var questionid = "<?php echo @$_GET['questionid'] ?>"
 var load_url = "<?php echo $load_url ?>";
 var totalquestions = <?php echo $totalquestions ?>;

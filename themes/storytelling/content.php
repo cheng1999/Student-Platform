@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="<?php echo $Template ?>storytelling/ext/storytelling.css">
 
-<iframe id="PostAction" name="PostAction" style="display:none" src="?p=st_post" ></iframe>
+<iframe id="PostAction" name="PostAction" style="display:none" ></iframe>
 <div id="PostList">
 </div>
 <center id="loadstatus" style="color:#4D4D4D;font-weight:bold;"><img src="<?php echo $Template?>storytelling/ext/loading.gif" id="loading"></img></center>

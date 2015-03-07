@@ -39,17 +39,22 @@ function loadquestions() {
                         else{
                             loaddetail();
                         }
-
+                        if (totalquestions<=loaded){
+                            loading.style.visibility = "hidden";
+                            document.getElementById("loadstatus").innerHTML="no more";
+                            loaded++;
+                        }
                         //questions=[];//emty questions[]
                 }
             }
         });
     }
     //if database have no more post,so this element will show "no more"
-    else if (totalquestions<=loaded){
+/*    else if (totalquestions<=loaded){
     	loading.style.visibility = "hidden";
     	document.getElementById("loadstatus").innerHTML="no more";
     }
+    */
 }
 
 
@@ -84,13 +89,25 @@ function loaddetail(){
     $(".asker .user")[0].innerHTML=questions[0].username;
     //$("date")[0].innerHTML=questions[0].time;
     $(".detail-summary")[0].innerHTML=questions[0].summary;
-    $(".detail-detail")[0].innerHTML=questions[0].detail;
-    $(".question-img").attr("src","uploads/"+questions[0].image);
+    $(".detail-detail")[0].innerHTML=(questions[0].detail ? questions[0].detail : 'no detail for this question.');
+    if(questions[0].image){
+        $(".question-img").attr("src","uploads/"+questions[0].image);
+    }else{
+        $(".question-img").remove();
+    }
+    
     //load answerform
-    $("#PostList").append(
-        $(".answerbox").html()
-    )
+    if(questions[0].finalanswer||questions[0].answered){}
+    else{
+        $("#PostList").append(
+            $(".answerbox")
+        );
+        $("#questionID").attr("value",questionid);//var question id set from <script>'s classname call initial
+    }
+    
     //load answer
+    
+    
     //load dicuss
 }
 
@@ -107,6 +124,14 @@ function Posting(THIS){
     
     $("#PostAction").load(function(){
         window.location.href = "?p=ask";
+    });
+}
+function Answering(THIS){
+    THIS.css("backgroundColor","#d9534f");
+    THIS.val("Submmiting...");
+    
+    $("#PostAction").load(function(){
+        window.location.href = window.location.href;
     });
 }
 

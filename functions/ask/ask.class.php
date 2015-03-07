@@ -42,6 +42,7 @@ class Ask{
             $image = (($row[5]>0) ? ("ask_".$row[5]) : 'null');//if exist image then return image filename or else return null
             //answers
             $answers = mysql_fetch_row(mysql_query("SELECT COUNT(*) FROM ask_answer WHERE questionid=$row[0]"))[0];
+            $answered = mysql_fetch_row(mysql_query("SELECT * FROM ask_answer WHERE studentno=".$_SESSION['studentno']))[0];//user is answered this question or not
             
            //to generate javascript for client to run. script is about the data of post in array type
            $output=array(
@@ -54,6 +55,7 @@ class Ask{
                'image'      =>$image    ,
                'views'      =>$row[6]   ,
                'answers'    =>$answers  ,
+               'answered'   =>$answered ,
                'finalanswer'=>$row[7]   ,
                );
                
@@ -76,9 +78,19 @@ class Ask{
             //get username from table "profile"
             $username = mysql_fetch_row(mysql_query("SELECT username FROM profile WHERE studentno=$row[1]"))[0];
             
-            //to generate javascript for client to run. script is about the data of post in array type
-            //answer.push([parentpostid,studentno,username,text,time])
-            echo "answer.push([$row[0],$row[1],'$username','$row[2]','$row[3]']);";
+            //image
+            $image = (($row[5]>0) ? ("ask_ans".$row[5]) : 'null');//if exist image then return image filename or else return null
+            
+            $output=array(
+                'questionid'    =>$row[0],
+                'id'            =>$row[1],
+                'studentno'     =>$row[2],
+                'username'      =>$username,
+                'answer'        =>$row[3],
+                'time'          =>$row[4],
+                'image'         =>$image,
+                );
+            echo "answer.push(".json_encode($output).");";
         }
     }
     public function loaddicuss($statement){

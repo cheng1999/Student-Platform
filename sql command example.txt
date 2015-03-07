@@ -11,7 +11,7 @@ create table storytelling_report (postid int(11) not null,studentno int(7) not n
 
 //ask
 create table ask_question (id int(11) not null auto_increment primary key,studentno int(7) not null,summary text not null,detail text,time varchar(21) not null, imageid int(11),views int(3) not null default 0,answerid int(19));
-create table ask_answer (questionid int(11) not null,id int(19) not null primary key,studentno int(7) not null,answer text not null,time varchar(21) not null);
+create table ask_answer (questionid int(11) not null,id int(19) not null ,studentno int(7) not null,answer text not null,time varchar(21) not null,imageid int(11));
 create table ask_view (primarykey int(19) not null primary key, studentno int(7) not null,questionid int(11) not null);
 create table ask_agree (primarykey int(19) not null primary key, studentno int(7) not null,answerid int(19) not null);
 
