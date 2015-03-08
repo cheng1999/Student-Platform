@@ -3,7 +3,7 @@ if(!checklogin()){
     exit();
 }
 
-include('storytelling.class.php');
+include(__DIR__.'/storytelling.class.php');
 $load = new Storytelling();
 
 //mode1 is post, mode2 is reply(comment), mode3 is +1(like) but it useless here

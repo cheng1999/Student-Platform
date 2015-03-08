@@ -9,7 +9,7 @@ if(!checklogin()){
 @$start = intval($_GET['load']);
 @$mode = intval($_GET['mode']); //mode 1 is load summary, mode 2 is load detail of question
 
-include('ask.class.php');
+include(__DIR__.'/ask.class.php');
 $ask=new Ask();     //function from class above
 
 if($mode==1){//load summary

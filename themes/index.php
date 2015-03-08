@@ -8,12 +8,12 @@ programmer:Lee Guo Cheng
 
 -->
 <html>
-<?php include("head.php") ?>
+<?php include(__DIR__."/head.php") ?>
 
 <body>
 <?php 
-include("nav.php");
-include("content.php")
+include(__DIR__."/nav.php");
+include(__DIR__."/content.php")
 ?>
 
 </body>

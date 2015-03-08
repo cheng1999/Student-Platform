@@ -20,11 +20,11 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<?php include('head.php') ?>
+<?php include(__DIR__.'/head.php') ?>
 
 </head>
 <body>
-<?php include('nav.php') ?>
+<?php include(__DIR__.'/nav.php') ?>
 
 <div id="container">
     <div id="user information">

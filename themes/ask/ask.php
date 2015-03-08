@@ -32,7 +32,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<?php include($Template . 'head.php') ?>
+<?php include(ROOT_DIR.$Template . 'head.php') ?>
 
 <script class="initial">
 var questions=[],answer=[],dicuss=[];
@@ -46,7 +46,7 @@ var username = "<?php echo $username ?>";
 </head>
 
 <body>
-<?php include($Template . 'nav.php') ?>
+<?php include(ROOT_DIR.$Template . 'nav.php') ?>
 <div id="container">
 		
 <?php
@@ -54,10 +54,10 @@ var username = "<?php echo $username ?>";
 //if not search a person post or just load an indecate post, will not load useless post form
 if(@$_GET['studentno']||@$_GET['questionid']){}
 else{
-    include('askform.php');
+    include(__DIR__.'/askform.php');
 }
 
-include($Template . 'ask/content.php');
+include(__DIR__.'/content.php');
 ?>
 
 </body>
