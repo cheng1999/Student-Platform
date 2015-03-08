@@ -82,7 +82,7 @@ function loadsummary(){
 function loaddetail(){
     $("#PostList").append(
         $("#question-detail").html()
-    )
+    );
     //load the detail of question
     $(".status")[0].innerHTML=(questions[0].finalanswer ? '<b>Solved</b>' : 'Unsolve');
     $(".asker .user").attr("href","?p=profile&studentno="+questions[0].studentno);

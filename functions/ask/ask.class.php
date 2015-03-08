@@ -39,10 +39,10 @@ class Ask{
             //get username from table "profile"
             $username = mysql_fetch_row(mysql_query("SELECT username FROM profile WHERE studentno=$row[1]"))[0];
             //image
-            $image = (($row[5]>0) ? ("ask_".$row[5]) : 'null');//if exist image then return image filename or else return null
+            $image = (($row[5]>0) ? ("ask_".$row[5]) : null);//if exist image then return image filename or else return null
             //answers
             $answers = mysql_fetch_row(mysql_query("SELECT COUNT(*) FROM ask_answer WHERE questionid=$row[0]"))[0];
-            $answered = mysql_fetch_row(mysql_query("SELECT * FROM ask_answer WHERE studentno=".$_SESSION['studentno']))[0];//user is answered this question or not
+            $answered = mysql_fetch_row(mysql_query("SELECT studentno FROM ask_answer WHERE questionid=$row[0] AND studentno=".$_SESSION['studentno']))[0];//user is answered this question or not
             
            //to generate javascript for client to run. script is about the data of post in array type
            $output=array(
