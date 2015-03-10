@@ -68,10 +68,10 @@ class Ask{
 
         while($row = mysql_fetch_row($result)){
             //get username from table "profile"
-            $username = mysql_fetch_row(mysql_query("SELECT username FROM profile WHERE studentno=$row[1]"))[0];
+            $username = mysql_fetch_row(mysql_query("SELECT username FROM profile WHERE studentno=$row[2]"))[0];
             
             //image
-            $image = (($row[5]>0) ? ("ask_ans".$row[5]) : 'null');//if exist image then return image filename or else return null
+            $image = (($row[5]>0) ? ("ask_ans_".$row[5]) : 'null');//if exist image then return image filename or else return null
             
             $output=array(
                 'questionid'    =>$row[0],
@@ -82,7 +82,7 @@ class Ask{
                 'time'          =>$row[4],
                 'image'         =>$image,
                 );
-            echo "answer.push(".json_encode($output).");";
+            echo "answers.push(".json_encode($output).");";
         }
     }
     public function loaddicuss($statement){

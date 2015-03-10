@@ -1,4 +1,11 @@
 <?php
+if(@$_GET['logout']){
+    echo "<script>alert(1)</script>";
+    session_unset();
+    session_destroy();
+    header("Location: ?p=home");
+    exit();
+}
 if(@$_SESSION['studentno']){
 	header('Location: ?p=home');
 }

@@ -1,24 +1,28 @@
 var loaded=0;//this var is the post number that have loaded
 
 //initial
-window.scrollTo(0, 0);
-loadquestions();
-loaded+=(loaded+20>totalquestions?totalquestions-loaded:20);
-window.scrollTo(0, 0);
+loadquestions();addloaded();
+
 
 //loadpost();
 $(window).scroll(function() {
-    if ($(window).scrollTop() + $(window).height() == $(document).height()){
+    if (($(window).scrollTop()+$(window).height()==$(document).height())&&
+        totalquestions>loaded){
 	    loadquestions();
-	    if(loaded+20<totalquestions){
-	        loaded+=20;
-	    }
-	    else if(totalquestions-loaded>0){
-	        loaded+=totalquestions-loaded;
-	    }
+        addloaded();
 	}
 });
 
+function addloaded(){
+    if(loaded+20<totalquestions){
+        loaded+=20;
+    }
+    else if(totalquestions-loaded>0){
+        loaded+=totalquestions-loaded;
+    }else{
+        loaded++;
+    }
+}
 
 //----------------------------------request the posts from server----------------------------------
 var loadstatus=document.getElementById("loadstatus");
@@ -44,12 +48,12 @@ function loadquestions() {
                         }
                         else{
                             loaddetail();
+                            loadanswers();
+                            loaddiscuss();
                             $("#PostList").find("#loadstatus").remove();
-                            loaded++;
                         }
                         if (totalquestions<=loaded&&!detail){
                             nomore($("#PostList"));
-                            loaded++;
                         }
                         
                 }
@@ -70,12 +74,12 @@ function loadquestions() {
 
 function loadsummary(){
     //append to postlist(layout)
-    for(i=0;i!=questions.length;i++){
+    for(i=0;i<questions.length;i++){
         $("#PostList").append(
             $(".questions").html()
         );
     }
-    for(i=questions.length-1;i>=0;i--){
+    for(i=questions.length-1;i>=0;i--){//from the new question to old question
         $("*.question-summary")[i].id=questions[i].id;
         $("*.status-question")[i].innerHTML=(questions[i].finalanswer ? '<br><b>Solved</b>' : '<br>Unsolve');
         $("*.status-answer")[i].innerHTML=questions[i].answers + '<br>Answers';
@@ -105,32 +109,40 @@ function loaddetail(){
     
     //initial below
     $("#PostList").append($(".aboutAnswer"));
-    $("#PostList").append($("#Answer_Dicuss"));
+    $("#PostList").append($("#Answer_Discuss"));
     $(".aAanswer").click();
 }
-function loadanswer(){
-    $("#Answer_Dicuss #answer").show();
-    $("#Answer_Dicuss #dicuss").hide();
-    
+function loadanswers(){
     //load answerform
     if(questions[0].finalanswer||questions[0].answered){}
     else{
-        $("#Answer_Dicuss #answer").append(
-            $(".answerbox")
-        );
-        $("#questionID").attr("value",questionid);//var question id set from <script>'s classname call initial
+        $("#Answer_Discuss #answers").append($(".answerbox"));
+        $(".answerbox #questionID").attr("value",questionid);//var question id set from <script>'s classname call initial
     }
-    
-    
+
+    for(i=0;i<answers.length;i++){
+        $("#Answer_Discuss #answers").append($(".answer").clone());
+    }
+    for(i=answers.length-1;i>=0;i--){//from the new answer to old answer
+        $(".answer .answer_text")[i].innerHTML=answers[i].answer;
+        $(".answer .answer_img")[i].setAttribute("src","uploads/"+answers[i].image);
+        $(".answer .user")[i].setAttribute("href","?p=profile&studentno="+answers[i].studentno);
+        $(".answer .user")[i].innerHTML=answers[i].username;
+        
+    }
 }
-function loaddicuss(){
-    $("#Answer_Dicuss #answer").hide();
-    $("#Answer_Dicuss #dicuss").show();
-    
-    $("#Answer_Dicuss #answer").append(
-        $(".dicussbox")
-    );
-    $("#questionID").attr("value",questionid);//var question id set from <script>'s classname call initial
+function loaddiscuss(){
+    $("#Answer_Discuss #discusses").append($(".discussbox"));
+    $(".discussbox #questionID").attr("value",questionid);//var question id set from <script>'s classname call initial
+}
+
+function showanswers(){
+    $("#Answer_Discuss #answers").show();
+    $("#Answer_Discuss #discusses").hide();
+}
+function showdiscusses(){
+    $("#Answer_Discuss #answers").hide();
+    $("#Answer_Discuss #discusses").show();
 }
 
 var questionID;

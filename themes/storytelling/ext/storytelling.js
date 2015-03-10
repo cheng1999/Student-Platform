@@ -1,13 +1,13 @@
 var loaded=0;//this var is the post number that have loaded
 
 //initial
-window.scrollTo(0, 0);
-loadpost();
-window.scrollTo(0, 0);
+loadpost();addloaded();
 
 $(window).scroll(function() {
-    if ($(window).scrollTop() + $(window).height() == $(document).height()){
+    if (($(window).scrollTop()+$(window).height()==$(document).height())&&
+        totalposts>loaded){
 	    loadpost();
+	    addloaded();
 	}
 });
 
@@ -17,8 +17,19 @@ function loadpost(){
         load(1);//loading posts first
         setTimeout(function(){//loading reply of posts after 1 second 
             load(2);
-            loaded+=(loaded+20>totalposts?totalposts-loaded:20);
+            addloaded();
         }, 1000);
+    }
+}
+
+function addloaded(){
+    if(loaded+20<totalposts){
+        loaded+=20;
+    }
+    else if(totalposts-loaded>0){
+        loaded+=totalposts-loaded;
+    }else{
+        loaded++;
     }
 }
 

@@ -37,19 +37,19 @@
     </div>
 
     <div class="aboutAnswer">
-        <a class="aAanswer" onclick="tab($(this));loadanswer()">Answer</a>
-        <a class="aAdicuss" onclick="tab($(this));loaddicuss()">Dicuss</a>
+        <a class="aAanswer" onclick="tab($(this));showanswers()">Answer</a>
+        <a class="aAdiscuss" onclick="tab($(this));showdiscusses()">Discuss</a>
     </div>
-    <div id="Answer_Dicuss">
-        <div id="answer"></div>
-        <div id="dicuss"></div>
+    <div id="Answer_Discuss">
+        <div id="answers"></div>
+        <div id="discusses"></div>
     </div>
     <div class="answer">
         <div class="answer_text"></div>
-        <div class="answer_img"></div>
+        <img class="answer_img" scr=""></img>
         <div class="problemsolver">Answer by: <a class=user href=""></a></div>
     </div>
-    <div class="dicuss">
+    <div class="discuss">
     </div>
     
     <div id="loadstatus">
