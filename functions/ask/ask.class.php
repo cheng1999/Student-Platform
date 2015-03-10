@@ -60,14 +60,6 @@ class Ask{
                );
                
             echo "questions.push(".json_encode($output).");";
-            /*echo "question.push([{",
-                "\"id\" : \"" .         $row[0]     . "\",",
-                "\"studentno\" : \"".   $row[1]     . "\",",
-                "\"username\" : \"".    $username   . "\",",
-                "\"summary\" : \"".     $row[2]     . "\",",
-                "\"detail\" : \"".      $row[3]     . "\",",
-                "\"time\"',$row[4],$plus1,$plused,$image,$reply,
-                "}]);";*/
         }
     }
     

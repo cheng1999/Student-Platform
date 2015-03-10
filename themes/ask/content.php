@@ -4,7 +4,7 @@
 <iframe id="PostAction" name="PostAction" style="display:none" ></iframe>
 <div id="PostList">
 </div>
-<center id="loadstatus" style="color:#4D4D4D;font-weight:bold;"><img src="<?php echo $Template?>ask/ext/loading.gif" id="loading"></img></center>
+
 			
 <div id="hideCon" style="display:none">
     <div class="questions">
@@ -20,25 +20,41 @@
                 <div class="time summaryblock"></div>
             </div>
         </div>
-    </div>
-    <div id="question-detail">
-        <div id="" class="question-detail">
-            <div class="summary">
-                <a class="status light"></a>
-                <br>
-                <div class="detail-summary"></div>
-            </div>
-            <div class="detail">
-                <a class="light">Detail:</a>
-                <div class="detail-detail"></div>
-                <img class="question-img" src="">
-            </div>
-            <div class="asker">Asker: <a class="user" href=""></a></div>
-            <br>
-            <br class="clear">
+    </div><br>
+    <div id="" class="question-detail">
+        <div class="summary">
+            <a class="status light"></a>
+            <div class="detail-summary"></div>
         </div>
+        <div class="detail">
+            <a class="light">Detail:</a>
+            <div class="detail-detail"></div>
+            <img class="question-img" src="">
+        </div>
+        <div class="asker">Asker: <a class="user" href=""></a></div>
+        <br>
+        <br class="clear">
     </div>
-    <div id="answer">
+
+    <div class="aboutAnswer">
+        <a class="aAanswer" onclick="tab($(this));loadanswer()">Answer</a>
+        <a class="aAdicuss" onclick="tab($(this));loaddicuss()">Dicuss</a>
+    </div>
+    <div id="Answer_Dicuss">
+        <div id="answer"></div>
+        <div id="dicuss"></div>
+    </div>
+    <div class="answer">
+        <div class="answer_text"></div>
+        <div class="answer_img"></div>
+        <div class="problemsolver">Answer by: <a class=user href=""></a></div>
+    </div>
+    <div class="dicuss">
+    </div>
+    
+    <div id="loadstatus">
+        <center id="loading"><img src="<?php echo $Template?>ask/ext/loading.gif" id="loading"></img></center>
+        <center id="nomore">No More</center>
     </div>
     
     <div class="answerbox">

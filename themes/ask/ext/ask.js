@@ -10,17 +10,22 @@ window.scrollTo(0, 0);
 $(window).scroll(function() {
     if ($(window).scrollTop() + $(window).height() == $(document).height()){
 	    loadquestions();
-	    loaded+=(loaded+20>totalquestions?totalquestions-loaded:20);
+	    if(loaded+20<totalquestions){
+	        loaded+=20;
+	    }
+	    else if(totalquestions-loaded>0){
+	        loaded+=totalquestions-loaded;
+	    }
 	}
 });
 
 
 //----------------------------------request the posts from server----------------------------------
-var loading=document.getElementById("loading");
+var loadstatus=document.getElementById("loadstatus");
 
 function loadquestions() {
-    if (totalquestions>loaded){//var totalquestions is set at <script>'id "initial"
-        document.getElementById("loading").style.visibility = "visible";
+    if (totalquestions>=loaded){//var totalquestions is set at <script>'id "initial"
+        loadmore($("#PostList"));
         $.ajax({
             url: load_url+'&load='+loaded,   //var load_url also set at <script>'id "initial"
             //fully url will like this: ?p=ask_load&load=20&mode=1
@@ -30,21 +35,23 @@ function loadquestions() {
 		    },
 		    success: function(response){
                 if(response){
-				    loading.style.visibility = "hidden";
+				    loadmore($("#PostList"));
                         eval(response);//eval is about add questions' summary to var questions
 
                         if(!detail){//if not load the detail of question
                             loadsummary();
+                            questions=[];//emty questions[]
                         }
                         else{
                             loaddetail();
-                        }
-                        if (totalquestions<=loaded){
-                            loading.style.visibility = "hidden";
-                            document.getElementById("loadstatus").innerHTML="no more";
+                            $("#PostList").find("#loadstatus").remove();
                             loaded++;
                         }
-                        //questions=[];//emty questions[]
+                        if (totalquestions<=loaded&&!detail){
+                            nomore($("#PostList"));
+                            loaded++;
+                        }
+                        
                 }
             }
         });
@@ -81,7 +88,7 @@ function loadsummary(){
 }
 function loaddetail(){
     $("#PostList").append(
-        $("#question-detail").html()
+        $(".question-detail")
     );
     //load the detail of question
     $(".status")[0].innerHTML=(questions[0].finalanswer ? '<b>Solved</b>' : 'Unsolve');
@@ -96,25 +103,59 @@ function loaddetail(){
         $(".question-img").remove();
     }
     
+    //initial below
+    $("#PostList").append($(".aboutAnswer"));
+    $("#PostList").append($("#Answer_Dicuss"));
+    $(".aAanswer").click();
+}
+function loadanswer(){
+    $("#Answer_Dicuss #answer").show();
+    $("#Answer_Dicuss #dicuss").hide();
+    
     //load answerform
     if(questions[0].finalanswer||questions[0].answered){}
     else{
-        $("#PostList").append(
+        $("#Answer_Dicuss #answer").append(
             $(".answerbox")
         );
         $("#questionID").attr("value",questionid);//var question id set from <script>'s classname call initial
     }
     
-    //load answer
     
+}
+function loaddicuss(){
+    $("#Answer_Dicuss #answer").hide();
+    $("#Answer_Dicuss #dicuss").show();
     
-    //load dicuss
+    $("#Answer_Dicuss #answer").append(
+        $(".dicussbox")
+    );
+    $("#questionID").attr("value",questionid);//var question id set from <script>'s classname call initial
 }
 
 var questionID;
 
+//view detail of question;
 function godetail(id){
     window.location.href="?p=ask&questionid="+id;
+}
+//the tab
+function tab(THIS){
+    $(".aboutAnswer a").css({"color":"#777","border":"3px solid #e0e0e0"});
+    THIS.css({"border-bottom":"3px solid #fff","color":"#555"});
+}
+
+//loading & no more
+function loadmore(THIS){
+    THIS.find("#loadstatus").remove();
+    THIS.append($("#loadstatus").clone());
+    THIS.find("#loadstatus #loading").show();
+}
+function nomore(THIS){
+    THIS.find("#loadstatus").remove();
+    THIS.append($("#loadstatus").clone());
+    THIS.find("#loadstatus #loading").hide();
+    THIS.find("#loadstatus #nomore").show();
 }
 
 //post

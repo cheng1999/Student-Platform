@@ -107,13 +107,25 @@
 		margin-bottom:60px;
 	}
 	
-	.cmt, #loadstatus{
+	.cmt{
 		box-shadow: 0 0 10px #ddd;
 		border: 1px dotted #ddd;
-		background-color: #FFFFFF;
 		margin-bottom:10px;
 		padding:10px;
 		clear:both;
+	}
+	
+	#loadstatus{
+	    padding:10px;
+	    color:#4D4D4D;
+	    font-weight:bold;
+	    height:50px;
+        box-shadow: 0 0 10px #ddd;
+		border: 1px dotted #ddd;
+		margin-top:20px;
+	}
+	#loadstatus *{
+	    display:none;
 	}
 	
 	.clear {
