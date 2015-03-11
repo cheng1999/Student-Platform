@@ -44,10 +44,16 @@
         <div id="answers"></div>
         <div id="discusses"></div>
     </div>
-    <div class="answer">
-        <div class="answer_text"></div>
-        <img class="answer_img" scr=""></img>
-        <div class="problemsolver">Answer by: <a class=user href=""></a></div>
+    <div class="answercontent">
+        <div class="answer" value="">
+            <div class="answerStatus" onclick=""></div>
+            <div class="answer_text"></div>
+            <img class="answer_img" scr=""></img>
+            <div class="problemsolver">
+                <a class="time"></a>
+                Answer by: <a class=user href=""></a>
+            </div>
+        </div>
     </div>
     <div class="discuss">
     </div>
@@ -70,7 +76,7 @@
 				<input id="attachment" type="file" name="image"><br>
 				
 				<input id="buttonSubmit" type="submit" value="Post (ctrl+enter)" onclick="Answering($(this))">
-			</form>
+		</form>
 	</div>
 </div>
 <script src="<?php echo $Template ?>ask/ext/ask.js"></script>

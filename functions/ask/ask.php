@@ -34,7 +34,7 @@ $detail=addslashes(htmlspecialchars($detail));
     else{
         
         $change = array("\n", "\r\n", "\r");
-        $summary = str_replace($change, '<br>', $summary);    //change enter <br>
+        $summary = str_replace($change, '<br>', $summary);    //change enter to <br>
         
         $link_regex='/((http|https)+\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z0-9\-\.\/_:@=.+?,##%&~-]*[^.|\'|\# |!|\(|?|,| |>|<|;|\)])/';
         $detail=preg_replace($link_regex,'<a href="$1">$1</a>', $detail);  //if have link detect in regex, make href
@@ -65,6 +65,12 @@ $detail=addslashes(htmlspecialchars($detail));
     $questionid=intval($_POST['questionid']);
     $answer=addslashes(htmlspecialchars($_POST['answer']));
     
+    $change = array("\n", "\r\n", "\r");
+    $answer = str_replace($change, '<br>', $answer);    //change enter <br>
+    
+    $link_regex='/((http|https)+\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z0-9\-\.\/_:@=.+?,##%&~-]*[^.|\'|\# |!|\(|?|,| |>|<|;|\)])/';
+    $answer=preg_replace($link_regex,'<a href="$1">$1</a>', $answer);  //if have link detect in regex, make href
+    
     //answer		(questionID!=0 && questionID is the id of question to answer)
         if(is_uploaded_file(@$_FILES['image']['tmp_name'])){
             $imageid=mysql_fetch_row(mysql_query("SELECT MAX(imageid) FROM ask_answer"))[0]+1;//the imageid to insert must lager that the max imageid in database to prevent no used id will reuse
@@ -80,13 +86,25 @@ $detail=addslashes(htmlspecialchars($detail));
         }
     }
         
-    else if($mode==3){ //if user click agree answer
-        mysql_query("INSERT IGNORE INTO storytelling_plus1 (primarykey,studentno,postid)VALUES($studentno$plus1Target,$studentno,$plus1Target)");
+    else if($mode==3){ //accepted answer
+        $answerid=intval($_GET['answerid']);
+        $questionid=intval($_GET['questionid']);
+        
+        //validation , is asker accepted the answer or 'hacker' ?
+        $asker=mysql_fetch_row(mysql_query("SELECT studentno from ask_question where id=$questionid"))[0];
+        
+        if($studentno==$asker){//if studentno not asker's
+            if(!mysql_query("UPDATE ask_question SET solved=1 where id=$questionid"))
+                die(mysql_error());
+            if(!mysql_query("UPDATE ask_answer SET accepted=1 where id=$answerid"))
+                die(mysql_error());
+        }
+        
         exit();
     }
-    else{
-        exit();
-    }
+    
+    exit();//exit when work is finished or no work(invalid $mode)
+
     
 
 ?>

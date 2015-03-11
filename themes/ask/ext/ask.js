@@ -44,18 +44,18 @@ function loadquestions() {
 
                         if(!detail){//if not load the detail of question
                             loadsummary();
-                            questions=[];//emty questions[]
+                            //questions=[];//emty questions[]
                         }
                         else{
                             loaddetail();
                             loadanswers();
                             loaddiscuss();
                             $("#PostList").find("#loadstatus").remove();
+                            nomore($("#PostList"));
                         }
                         if (totalquestions<=loaded&&!detail){
                             nomore($("#PostList"));
                         }
-                        
                 }
             }
         });
@@ -76,12 +76,12 @@ function loadsummary(){
     //append to postlist(layout)
     for(i=0;i<questions.length;i++){
         $("#PostList").append(
-            $(".questions").html()
+            $(".questions").html() //cannot use clone here because it will append one more (don know why -- someone can teach me?)
         );
     }
     for(i=questions.length-1;i>=0;i--){//from the new question to old question
         $("*.question-summary")[i].id=questions[i].id;
-        $("*.status-question")[i].innerHTML=(questions[i].finalanswer ? '<br><b>Solved</b>' : '<br>Unsolve');
+        $("*.status-question")[i].innerHTML=(questions[i].solved ? '<br><b>Solved</b>' : '<br>Unsolve');
         $("*.status-answer")[i].innerHTML=questions[i].answers + '<br>Answers';
         $("*.views")[i].innerHTML=(questions[i].views ? questions[i].views : '0') + '<br>Views';
         $("*.summary .h3")[i].innerHTML=questions[i].summary;
@@ -114,26 +114,56 @@ function loaddetail(){
 }
 function loadanswers(){
     //load answerform
-    if(questions[0].finalanswer||questions[0].answered){}
-    else{
+    if(!questions[0].answered&&studentno!=questions[0].studentno){//if user have not answered or not asker then show answerbox){}
         $("#Answer_Discuss #answers").append($(".answerbox"));
         $(".answerbox #questionID").attr("value",questionid);//var question id set from <script>'s classname call initial
     }
 
     for(i=0;i<answers.length;i++){
-        $("#Answer_Discuss #answers").append($(".answer").clone());
+        $("#Answer_Discuss #answers").append($(".answercontent").html());//cannot use clone here because it will append one more (don know why -- someone can teach me?)
     }
-    for(i=answers.length-1;i>=0;i--){//from the new answer to old answer
-        $(".answer .answer_text")[i].innerHTML=answers[i].answer;
-        $(".answer .answer_img")[i].setAttribute("src","uploads/"+answers[i].image);
-        $(".answer .user")[i].setAttribute("href","?p=profile&studentno="+answers[i].studentno);
-        $(".answer .user")[i].innerHTML=answers[i].username;
+    
+    
+    for(i=answers.length-1;i>=0;i--){
+        $(".answer")[i].setAttribute("value",answers[i].id);
         
+        //if this answer is accepted by asker or the reader is not the asker, the button accepted will remove
+        
+        if(answers[i].accepted){    //if answer is accepted by asker
+            $(".answer .answerStatus")[i].className = $(".answer .answerStatus")[i].className + " solved";
+            $(".answer .answerStatus")[i].innerHTML='Accepted';
+        }
+        else if(studentno==questions[0].studentno){  //or if the user is asker
+            $(".answer .answerStatus")[i].className = $(".answer .answerStatus")[i].className + " accept";   //set the button to accept
+            $(".answer .answerStatus")[i].innerHTML='Accept this answer';
+            $(".answer .answerStatus")[i].setAttribute("onclick","acceptanswer($(this))");  //create the button's function, click will accepted answer
+        }
+        else{   //if both are not, remove it (not accepted or user not asker)
+            $(".answer .answerStatus")[i].remove();
+        }
+            
+        $(".answer .answer_text")[i].innerHTML=answers[i].answer;
+        
+        (answers[i].image ?
+            $(".answer .answer_img")[i].setAttribute("src","uploads/"+answers[i].image): 
+            $(".answer .answer_img")[i].remove());
+
+        $(".problemsolver .user")[i].setAttribute("href","?p=profile&studentno="+answers[i].studentno);
+        $(".problemsolver .user")[i].innerHTML=answers[i].username;
+        $(".problemsolver .time")[i].innerHTML=answers[i].time;
     }
 }
+
 function loaddiscuss(){
     $("#Answer_Discuss #discusses").append($(".discussbox"));
     $(".discussbox #questionID").attr("value",questionid);//var question id set from <script>'s classname call initial
+}
+
+//accept answer
+function acceptanswer(THIS){
+    $.get("?p=ask_ask&mode=3&answerid="+THIS.parent().attr("value")+"&questionid="+questionid);    //?p=ask_ask&mode=3&answerid=20130451&questionid=1
+    THIS.removeClass("accept").addClass("solved");
+    THIS.html("Accepted");
 }
 
 function showanswers(){
@@ -145,7 +175,6 @@ function showdiscusses(){
     $("#Answer_Discuss #discusses").show();
 }
 
-var questionID;
 
 //view detail of question;
 function godetail(id){
@@ -188,10 +217,12 @@ function Answering(THIS){
     });
 }
 
+//give the image original size
 function bigimg(THIS){
     THIS.css("maxHeight","none");
 }
-//text overflow;
+
+//text overflow
 function chkOverFlowText(){
     $("*#readmore").remove();
     for(var i=0;i<$("*#text").length;i++){

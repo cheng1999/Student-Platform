@@ -23,7 +23,7 @@ class Ask{
                'time'       =>$row[4]   ,
                'views'      =>$views    ,
                'answers'    =>$answers  ,
-               'finalanswer'=>$row[7]   ,
+               'solved'     =>$row[7]   ,
                );
             echo "questions.push(".json_encode($output).");";
         }
@@ -56,7 +56,7 @@ class Ask{
                'views'      =>$row[6]   ,
                'answers'    =>$answers  ,
                'answered'   =>$answered ,
-               'finalanswer'=>$row[7]   ,
+               'solved'     =>$row[7]   ,
                );
                
             echo "questions.push(".json_encode($output).");";
@@ -65,22 +65,23 @@ class Ask{
     
     public function loadanswer($statement){
         $result = mysql_query("SELECT * FROM ask_answer $statement"); //mysql
-
+        
         while($row = mysql_fetch_row($result)){
             //get username from table "profile"
             $username = mysql_fetch_row(mysql_query("SELECT username FROM profile WHERE studentno=$row[2]"))[0];
             
             //image
-            $image = (($row[5]>0) ? ("ask_ans_".$row[5]) : 'null');//if exist image then return image filename or else return null
+            $image = (($row[5]>0) ? ("ask_ans_".$row[5]) : null);//if exist image then return image filename or else return null
             
             $output=array(
                 'questionid'    =>$row[0],
-                'id'            =>$row[1],
+                'id'            =>$row[1],  //the id is answer's studentno.questionid
                 'studentno'     =>$row[2],
                 'username'      =>$username,
                 'answer'        =>$row[3],
                 'time'          =>$row[4],
                 'image'         =>$image,
+                'accepted'      =>$row[6],
                 );
             echo "answers.push(".json_encode($output).");";
         }

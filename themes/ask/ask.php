@@ -41,6 +41,7 @@ var load_url = "<?php echo $load_url ?>";
 var totalquestions = <?php echo $totalquestions ?>;
 var detail = <?php echo $detail ?> //the boolean to tell javascript load summary or detail
 var username = "<?php echo $username ?>";
+var studentno = <?php echo $_SESSION['studentno'] ?>;
 </script>
 
 </head>

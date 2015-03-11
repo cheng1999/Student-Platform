@@ -123,9 +123,18 @@
         box-shadow: 0 0 10px #ddd;
 		border: 1px dotted #ddd;
 		margin-top:20px;
+		height:120px;
+	}
+	img#loading {
+		height:120px;
+		width:120px;
+		display:block;
 	}
 	#loadstatus *{
 	    display:none;
+	}
+	#nomore{
+	    margin:40px;
 	}
 	
 	.clear {
@@ -238,11 +247,6 @@
 	
 	#hideCon {
 		display:none;
-	}
-	
-	img#loading {
-		height:120px;
-		width:120px;
 	}
 	
 	@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
