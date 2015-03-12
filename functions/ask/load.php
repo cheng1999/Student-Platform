@@ -32,7 +32,7 @@ else if($mode==2){//load question in detail
     $ask->loaddetail("WHERE id=$questionid");
     $ask->loadanswer("WHERE questionid=$questionid AND accepted=1 ORDER BY time DESC");//load the answer than accepted first
     $ask->loadanswer("WHERE questionid=$questionid AND accepted IS NULL ORDER BY time DESC");//then load the non accepted answer
-    $ask->loaddicuss("WHERE id=$questionid ORDER BY time DESC");
+    $ask->loaddiscuss("WHERE questionid=$questionid ORDER BY time DESC");
 }
 else{
     exit();

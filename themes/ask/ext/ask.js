@@ -113,10 +113,16 @@ function loaddetail(){
     $(".aAanswer").click();
 }
 function loadanswers(){
+    
+    //set answers Number
+    $(".aAanswer")[0].innerHTML+=" ("+questions[0].answers+")";
+    
     //load answerform
-    if(!questions[0].answered&&studentno!=questions[0].studentno){//if user have not answered or not asker then show answerbox){}
+    $(".answerbox #questionID").attr("value",questionid);//var question id set from <script>'s classname call initial
+    if(!questions[0].answered&& //if user have not answered the question
+        studentno!=questions[0].studentno&& //user not asker
+        !questions[0].solved){  //question not solved yet
         $("#Answer_Discuss #answers").append($(".answerbox"));
-        $(".answerbox #questionID").attr("value",questionid);//var question id set from <script>'s classname call initial
     }
 
     for(i=0;i<answers.length;i++){
@@ -152,11 +158,30 @@ function loadanswers(){
         $(".problemsolver .user")[i].innerHTML=answers[i].username;
         $(".problemsolver .time")[i].innerHTML=answers[i].time;
     }
+    
+    if(!questions[0].answered&& //if user have not answered the question
+        studentno!=questions[0].studentno&& //user not asker
+        questions[0].solved){  //BUT question SOLVED
+        $("#Answer_Discuss #answers").append($(".answerbox"));
+        $(".answerbox textarea").attr("placeholder","I have better answer !!");//so you have better answer ?
+    }
 }
 
 function loaddiscuss(){
     $("#Answer_Discuss #discusses").append($(".discussbox"));
     $(".discussbox #questionID").attr("value",questionid);//var question id set from <script>'s classname call initial
+    
+    for(i=0;i<discusses.length;i++){
+        $("#Answer_Discuss #discusses").append($(".discusscontent").html());
+    }
+    for(i=discusses.length-1;i>=0;i--){//order by time
+        $(".discusser .user")[i].innerHTML=discusses[i].username;
+        $(".discusser .user")[i].setAttribute("href","?p=profile&studentno="+discusses[i].studentno);
+        
+        $(".discusser .time")[i].innerHTML=discusses[i].time;
+        $(".discuss .discuss_text")[i].innerHTML=discusses[i].discuss;
+    }
+    chkOverFlowText();
 }
 
 //accept answer
@@ -187,16 +212,16 @@ function tab(THIS){
 }
 
 //loading & no more
-function loadmore(THIS){
-    THIS.find("#loadstatus").remove();
-    THIS.append($("#loadstatus").clone());
-    THIS.find("#loadstatus #loading").show();
+function loadmore(target){
+    target.find("#loadstatus").remove();
+    target.append($("#loadstatus").clone());
+    target.find("#loadstatus #loading").show();
 }
-function nomore(THIS){
-    THIS.find("#loadstatus").remove();
-    THIS.append($("#loadstatus").clone());
-    THIS.find("#loadstatus #loading").hide();
-    THIS.find("#loadstatus #nomore").show();
+function nomore(target){
+    target.find("#loadstatus").remove();
+    target.append($("#loadstatus").clone());
+    target.find("#loadstatus #loading").hide();
+    target.find("#loadstatus #nomore").show();
 }
 
 //post
@@ -224,11 +249,16 @@ function bigimg(THIS){
 
 //text overflow
 function chkOverFlowText(){
-    $("*#readmore").remove();
-    for(var i=0;i<$("*#text").length;i++){
-        if($("*#text")[i].scrollHeight >  $('#text').innerHeight()){
-            $("*#text")[i].closest("#Pcontent").innerHTML += "<a id=\"readmore\" onclick=\"readmore($(this))\">read more</a>";
+    $("*.readmore").remove();
+    for(var i=0;i<$("*.text").length;i++){
+        if($("*.text")[i].scrollHeight >  $('.text').innerHeight()){
+            $("*.text")[i].parentNode.innerHTML+="<a class=\"readmore\" onclick=\"readmore($(this))\">...</a>";
         }
     }
 }
+function readmore(THIS){
+    THIS.parent().find(".text").css({"maxHeight":"none","overflow":"auto"});
+    THIS.remove();
+}
+
 

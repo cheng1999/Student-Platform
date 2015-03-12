@@ -55,7 +55,14 @@
             </div>
         </div>
     </div>
-    <div class="discuss">
+    <div class="discusscontent">
+        <div class="discuss" value="">
+            <div class="discusser">
+                <a class=user href=""></a>
+                <a class="time"></a>
+            </div>
+            <div class="discuss_text text"></div>
+        </div>
     </div>
     
     <div id="loadstatus">
@@ -74,7 +81,20 @@
 					"></textarea>
 				<br>
 				<input id="attachment" type="file" name="image"><br>
-				
+				<input id="buttonSubmit" type="submit" value="Post (ctrl+enter)" onclick="Answering($(this))">
+		</form>
+	</div>
+	
+    <div class="discussbox">
+        <form id="Postbox" style="height:45vh" class="cmt" method="post" target="PostAction" action="?p=ask_ask&mode=4" enctype="multipart/form-data">
+            <input id="questionID" type="hidden" value="" name="questionid">
+            <br><br>
+				<textarea id="textInput" style="height:20vh" name="discuss" maxlength="200" placeholder="It doesn't matter if you left some stupid discussions here."
+				onkeydown="if(event.ctrlKey&&event.keyCode==13){
+					this.parentNode.buttonSubmit.click();
+					return false};
+					"></textarea>
+				<br>
 				<input id="buttonSubmit" type="submit" value="Post (ctrl+enter)" onclick="Answering($(this))">
 		</form>
 	</div>

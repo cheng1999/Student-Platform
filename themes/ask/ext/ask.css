@@ -170,10 +170,10 @@
 	    display:none;
 	}
 	
-	#readmore {
+	.readmore {
 	    cursor:pointer;
 	    background-color:#dcdcdc;
-	    float:right;
+	    margin-left:20px;
 	    color:#676767;
 	}
 	

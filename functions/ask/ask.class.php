@@ -86,8 +86,22 @@ class Ask{
             echo "answers.push(".json_encode($output).");";
         }
     }
-    public function loaddicuss($statement){
-        $result = mysql_query("SELECT * FROM ask_answer $statement"); //mysql
+    public function loaddiscuss($statement){
+        $result = mysql_query("SELECT * FROM ask_discuss $statement"); //mysql
+        
+        while($row = mysql_fetch_row($result)){
+            $username = mysql_fetch_row(mysql_query("SELECT username FROM profile WHERE studentno=$row[1]"))[0];
+            
+            $output=array(
+                'questionid'    =>$row[0],
+                'studentno'     =>$row[1],
+                'username'      =>$username,
+                'discuss'       =>$row[2],
+                'time'          =>$row[3],
+                );
+                
+            echo "discusses.push(".json_encode($output).");";
+        }
     }
 }
 ?>

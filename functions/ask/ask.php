@@ -32,9 +32,7 @@ $detail=addslashes(htmlspecialchars($detail));
  * -----------------------the requirement is passed, edit text and fill date----------------
  */
     else{
-        
-        $change = array("\n", "\r\n", "\r");
-        $summary = str_replace($change, '<br>', $summary);    //change enter to <br>
+        $summary = nl2br($summary);    //change enter to <br>
         
         $link_regex='/((http|https)+\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z0-9\-\.\/_:@=.+?,##%&~-]*[^.|\'|\# |!|\(|?|,| |>|<|;|\)])/';
         $detail=preg_replace($link_regex,'<a href="$1">$1</a>', $detail);  //if have link detect in regex, make href
@@ -61,17 +59,20 @@ $detail=addslashes(htmlspecialchars($detail));
  *if not ask question
  */
     if ($mode==2){ //answer question
-    //initial variable
-    $questionid=intval($_POST['questionid']);
-    $answer=addslashes(htmlspecialchars($_POST['answer']));
+
+        //initial variable
+        $questionid=intval($_POST['questionid']);
+        $answer=addslashes(htmlspecialchars($_POST['answer']));
     
-    $change = array("\n", "\r\n", "\r");
-    $answer = str_replace($change, '<br>', $answer);    //change enter <br>
+        //check user answered the question or not, if did , exit
+        if(mysql_fetch_row(mysql_query("SELECT id FROM ask_answer WHERE id=$studentno$questionid"))[0]){exit();}
     
-    $link_regex='/((http|https)+\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z0-9\-\.\/_:@=.+?,##%&~-]*[^.|\'|\# |!|\(|?|,| |>|<|;|\)])/';
-    $answer=preg_replace($link_regex,'<a href="$1">$1</a>', $answer);  //if have link detect in regex, make href
+        $answer = nl2br($answer);    //change enter <br>
     
-    //answer		(questionID!=0 && questionID is the id of question to answer)
+        $link_regex='/((http|https)+\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z0-9\-\.\/_:@=.+?,##%&~-]*[^.|\'|\# |!|\(|?|,| |>|<|;|\)])/';
+        $answer=preg_replace($link_regex,'<a href="$1">$1</a>', $answer);  //if have link detect in regex, make href
+
+        //answer		(questionID!=0 && questionID is the id of question to answer)
         if(is_uploaded_file(@$_FILES['image']['tmp_name'])){
             $imageid=mysql_fetch_row(mysql_query("SELECT MAX(imageid) FROM ask_answer"))[0]+1;//the imageid to insert must lager that the max imageid in database to prevent no used id will reuse
             processimage($_FILES['image'] , "ask_ans_".$imageid);//process uploaded image function in ROOT_DIR functions/functions.php
@@ -99,8 +100,16 @@ $detail=addslashes(htmlspecialchars($detail));
             if(!mysql_query("UPDATE ask_answer SET accepted=1 where id=$answerid"))
                 die(mysql_error());
         }
-        
         exit();
+    }
+    else if($mode==4){  //discuss
+        $discuss=addslashes(htmlspecialchars($_POST['discuss']));
+        $questionid=intval($_POST['questionid']);
+        
+        $discuss=nl2br($discuss);
+        
+        if(!mysql_query("INSERT INTO ask_discuss (questionid, studentno, text, time)VALUES($questionid,$studentno,'$discuss','$time')"));
+                die(mysql_error());
     }
     
     exit();//exit when work is finished or no work(invalid $mode)
