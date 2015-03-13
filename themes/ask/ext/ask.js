@@ -95,7 +95,7 @@ function loaddetail(){
         $(".question-detail")
     );
     //load the detail of question
-    $(".status")[0].innerHTML=(questions[0].finalanswer ? '<b>Solved</b>' : 'Unsolve');
+    $(".status")[0].innerHTML=(questions[0].solved ? '<b>Solved</b>' : 'Unsolve');
     $(".asker .user").attr("href","?p=profile&studentno="+questions[0].studentno);
     $(".asker .user")[0].innerHTML=questions[0].username;
     //$("date")[0].innerHTML=questions[0].time;
