@@ -1,6 +1,17 @@
 <link rel="stylesheet" href="<?php echo $Template ?>ask/ext/ask.css">
 <link rel="stylesheet" href="<?php echo $Template ?>ask/ext/summary.css">
 
+<div id="search">
+    <input id="search_text"
+    onkeydown="if(event.keyCode==13){
+					$('#search_button').click();
+					return false};
+					">
+    
+    <input id="search_button" value="search"
+    onclick="window.location.href='?p=ask&search='+$('#search_text').val()">
+</div>
+
 <iframe id="PostAction" name="PostAction" style="display:none" ></iframe>
 <div id="PostList">
 </div>

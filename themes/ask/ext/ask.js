@@ -3,7 +3,6 @@ var loaded=0;//this var is the post number that have loaded
 //initial
 loadquestions();addloaded();
 
-
 //loadpost();
 $(window).scroll(function() {
     if (($(window).scrollTop()+$(window).height()==$(document).height())&&
@@ -85,7 +84,6 @@ function loadsummary(){
         $("*.status-answer")[i].innerHTML=questions[i].answers + '<br>Answers';
         $("*.views")[i].innerHTML=(questions[i].views ? questions[i].views : '0') + '<br>Views';
         $("*.summary .h3")[i].innerHTML=questions[i].summary;
-        //  $("*.summary .tags")[i].innerHTML="";
         $("*.summary .asker")[i].innerHTML=questions[i].username;
         $("*.summary .time")[i].innerHTML=questions[i].time;
     }

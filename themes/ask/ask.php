@@ -15,9 +15,9 @@
         $totalquestions = 1;
         $detail = 1;
     }
-    else if(@$_GET['tag']){
-        $load_url = "?p=ask_load&mode=1&tag=".addslashes($_GET['tag']);
-        $totalquestions = mysql_fetch_row(mysql_query("SELECT COUNT(*) FROM ask_question WHERE summary LIKE \"%#".addslashes($_GET['tag'])."%\""))[0];
+    else if(@$_GET['search']){
+        $load_url = "?p=ask_load&mode=1&search=".addslashes($_GET['search']);
+        $totalquestions = mysql_fetch_row(mysql_query("SELECT COUNT(*) FROM ask_question WHERE summary LIKE \"%".addslashes($_GET['search'])."%\""))[0];
         $detail = 0;
     }
     else{
@@ -27,6 +27,7 @@
     }
     
     $username = mysql_fetch_row(mysql_query("SELECT username FROM profile WHERE studentno=" . $_SESSION['studentno']))[0];//get username
+    
 ?>
 
 <!DOCTYPE HTML>
@@ -42,6 +43,7 @@ var totalquestions = <?php echo $totalquestions ?>;
 var detail = <?php echo $detail ?> //the boolean to tell javascript load summary or detail
 var username = "<?php echo $username ?>";
 var studentno = <?php echo $_SESSION['studentno'] ?>;
+
 </script>
 
 </head>

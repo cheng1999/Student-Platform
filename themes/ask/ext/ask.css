@@ -62,7 +62,7 @@
 		font-size:small;
 	}
 
-	#Postbox input {
+	input {
 		border: 0 none;
 		border-radius: 2px;
 		line-height: 20px;
@@ -74,7 +74,7 @@
 		
 	}
 	
-	#Postbox #textInput {
+	#Postbox #textInput{
 		border: 1px solid #ccc;
 		height: 125px;
 		width: 100%;
@@ -95,7 +95,7 @@
 	
 	#Postbox #buttonSubmit {
 		background-color: #42b17e;
-		color: #ffffff;
+		color: #fff;
 		font-size: small;
 		height:50px;
 		text-transform: uppercase;
