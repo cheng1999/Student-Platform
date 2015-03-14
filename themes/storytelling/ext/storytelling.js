@@ -50,50 +50,15 @@ function load(mode) {
 		success: function(response){
 			if(response){
 				loading.style.visibility = "hidden";
-				if(mode==1){//mode 1 for post
-					eval(response);//eval is about add post to var post
-					//post.push([id,studentno,username,text,time,plus1,boolean plused,image,replys])
+				eval(response);//eval is about add post to var post
 					
-					//append post to postlist(layout)
-					for(i=0;i<post.length;i++){
-					    $('#PostList').append(
-					        "<div class=\"cmt\" id=\"" + post[i][0] + "\">" +   //postid
-					        "<div id=\"cmtauthor\">"                        +
-					        "<a id=\"plused\">+" + post[i][5] + "</a>"       +   //plus1
-					        "<a id=\"user\" href=\"?p=profile&studentno=" + post[i][1] + "\">" + post[i][2] + "</a>"  +   //username
-					        "<a id=\"report\" onclick=\"report($(this))\">report</a>"                         +
-					        "<date>" + post[i][4] + "</date></div>"         +   //time
-					        
-					        "<div id=\"Pcontent\"><div id=\"text\">" + post[i][3] + "</div></div>"     +   //text
-					        
-					        (post[i][7] ? ("<img id=\"postimg\" onclick=\"bigimg($(this))\" src=\"uploads/" + post[i][7] + "\"></img><br>") : "") +  //image     //if have image return image filename
-					        (post[i][6] ? ("<a id=\"plus1\" onclick=\"plus1($(this))\"></a>") : "")    +   //plus1(like) button    //if user did like this post, no button for use to press
-					        "<a id=\"reply\" onclick=\"doreply($(this))\">reply("+post[i][8]+")</a><div id=\"ReplyList\">"    +
-					        "</div><br class=\"clear\"></div>"
-					    );
-					}
-					
-					post=[];//emty post[]
-				}
-				if(mode==2){//mode 2 for reply
-				    eval(response);
-				    
-				    //reply.push([parentpostid,studentno,username,text,time])
-				    for(i=0;i<reply.length;i++){
-					    if($(".cmt#" + reply[i][0])){    //id   //if the post with indicated id existed
-					        $(".cmt#" + reply[i][0]).find("#ReplyList").append(
-    					        "<div class=\"reply\"><div id=\"cmtauthor\">"   +
-    					        "<a id=\"user\" href=\"?p=profile&studentno=" + reply[i][1] + "\">" + reply[i][2] + "</a>"                     +   //username
-    					        "<date>" + reply[i][4] + "</date></div>"        +   //time
-    					        "<div id=\"Pcontent\"><div id=\"text\">" + reply[i][3] + "</div></div></div>"     //text
-					        );
-					    }
-				    }
-                    reply=[]; //emty reply
+                loadposts();
+				posts=[];//emty post[]
                     
-				}
-				chkOverFlowText();
+                loadreplys();
+                replys=[]; //emty reply
 			}
+			chkOverFlowText();
 		}
 	});
     }
@@ -106,6 +71,57 @@ function load(mode) {
 
 
 //-----------------------------------------function()--------------------------------------------------
+function loadposts(){
+    for(i=0;i<posts.length;i++){
+	    $("#PostList").append($(".postcontent").html());
+	}
+	
+	for(i=posts.length-1;i>=0;i--){
+		$("*.post")[i].setAttribute("value",posts[i].id);
+		$("*.post")[i].setAttribute("id",posts[i].id);
+		$("*.post #plused")[i].innerHTML="+"+posts[i].plus1;
+		
+		$("*.post #user")[i].innerHTML=posts[i].username;
+		$("*.post #user")[i].setAttribute("href","?p=profile&studentno="+posts[i].studentno);
+        
+		$("*.post #text")[i].innerHTML=posts[i].text;
+		
+		$("date")[i].innerHTML=posts[i].time;
+		
+		(posts[i].image ? $("*.post #postimg")[i].setAttribute("src","uploads/"+posts[i].image) : $("*.post #postimg")[i].remove());
+    
+		if(!posts[i].plused){
+            $("*.post #plus1")[i].remove();
+        }
+        if(posts[i].replys){
+            $("*.post #reply")[i].innerHTML="reply ( "+posts[i].replys+" )";
+        }
+        
+	}
+}
+
+function loadreplys(){
+    for(i=0;i<replys.length;i++){
+        if($(".post#"+replys[i].parentpostid)){
+            target=$(".post#"+replys[i].parentpostid);
+            
+            target.find("#ReplyList").append($(".replycontent").html());
+            target.find("#user:last").html(replys[i].username);
+            target.find("#user:last").attr("href","?p=profile&studentno="+replys[i].studentno);
+            target.find("#text:last").html(replys[i].text);
+            target.find("#date:last").html(replys[i].time);
+        }
+	}/*
+	for(i=replys.length-1;i>=0;i--){
+	    if($("*.post#"+replys[i].parentpostid)){
+	    console.log(i);
+            $("*.reply #user")[i].innerHTML=replys[i].username;
+            $("*.reply #user")[i].setAttribute("href","?p=profile&studentno="+replys[i].studentno);
+            $("*.reply #text")[i].innerHTML=replys[i].text;
+	    }
+	}*/
+}
+
 //some action listener
 var PostID;
 
@@ -115,13 +131,13 @@ function readmore(THIS){
 }
 function doreply(THIS){
     THIS.parent().find("#ReplyList").show();
-    PostID=THIS.parent().attr("id");
+    PostID=THIS.parent().attr("value");
     THIS.parent().append($('.cmt #Postbox'));
     $(".cmt #Postbox #PostID").attr('value',''+PostID);
     chkOverFlowText();
 }
 function plus1(THIS){
-    PostID=THIS.parent().attr("id");
+    PostID=THIS.parent().attr("value");
     $.get("?p=st_post&mode=3&PostID="+PostID);//mode 3 call that action is plus1
     var plused = THIS.parent().find('#plused');
     plused.text("+"+(parseInt(plused.text())+1));//clear the #plused
@@ -131,7 +147,7 @@ function bigimg(THIS){
     THIS.css("maxHeight","none");
 }
 function report(THIS){
-    POSTID=(THIS.parent().parent().attr("id"));
+    POSTID=(THIS.parent().parent().attr("value"));
     window.location.href="?p=st_report&PostID="+POSTID;
 }
 
@@ -171,7 +187,7 @@ function chkOverFlowText(){
     $("*#readmore").remove();
     for(var i=0;i<$("*#text").length;i++){
         if($("*#text")[i].scrollHeight >  $('#text').innerHeight()){
-            $("*#text")[i].parentNode.innerHTML += "<a id=\"readmore\" onclick=\"readmore($(this))\">read more</a>";
+            $("*#text")[i].parentNode.innerHTML += "<a id=\"readmore\" onclick=\"readmore($(this))\">...</a>";
         }
     }
 }

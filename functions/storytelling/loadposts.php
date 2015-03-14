@@ -6,43 +6,42 @@ if(!checklogin()){
 include(__DIR__.'/storytelling.class.php');
 $load = new Storytelling();
 
-//mode1 is post, mode2 is reply(comment), mode3 is +1(like) but it useless here
-@$mode   =   intval($_GET['mode']);
-@$start  =   intval($_GET['load']);
-$loadperTime=20;
 
-@$studentno = intval($_GET['studentno']);
-@$postid = intval($_GET['postid']);
-
-//set mode1 statement and mode2 statement for load data from mysql
-if(@$studentno){
-    $mode1_statement="WHERE studentno=$studentno ORDER BY id DESC LIMIT $start,$loadperTime";
+//load only the post from a studentno, this require special operation when load replys of the post, so it run alone here.
+if(@$_GET['studentno']){//only load posts of student
+    @$studentno = intval($_GET['studentno']);
     
-    if(@$mode==2){ //special rule while user is trying to load only a studentno's post's reply
+    $start = intval($_GET['load']);
+    $loadperTime=20;
+    $post_statement="WHERE studentno=$studentno ORDER BY id DESC LIMIT $start,$loadperTime";
+    
+    $load->loadpost($post_statement);
+    
     $result = mysql_query("SELECT id FROM storytelling WHERE studentno=$studentno ORDER BY id DESC LIMIT $start,$loadperTime");
     while($row=mysql_fetch_row($result)){
-        $mode2_statement="WHERE parentid=$row[0]" ;
-        $load->loadreply($mode2_statement);
+        $reply_statement="WHERE parentid=$row[0]" ;
+        $load->loadreply($reply_statement);
     }
     exit();
-    }
-}
-else if(@$postid){
-    $mode1_statement="WHERE id=$postid";
-    $mode2_statement="WHERE parentid=$postid";
-}
-else{
-    $mode1_statement="ORDER BY id DESC LIMIT $start,$loadperTime";
-    $mode2_statement="WHERE parentid BETWEEN $start AND $start+$loadperTime";
 }
 
-if($mode==1){ //post
-	$load->loadpost($mode1_statement);
+//load arealy of the post
+else if(@$_GET['postid']){//if only want to read only a post which is indecated with postid
+    $postid = intval($_GET['postid']);
+
+    $post_statement="WHERE id=$postid";
+    $reply_statement="WHERE parentid=$postid";
 }
-else if($mode==2){ //reply
-	$load->loadreply($mode2_statement);
+else{//default , load 20 posts per time,but load maybe with the value 0, so cannot use if statement
+    $start = intval($_GET['load']);
+    $loadperTime=20;
+    
+    $post_statement="ORDER BY id DESC LIMIT $start,$loadperTime";
+    $reply_statement="WHERE parentid BETWEEN $start AND $start+$loadperTime";
 }
-else{//if invalid $_GET will exit
-    exit();
-}
+
+
+$load->loadpost($post_statement);
+$load->loadreply($reply_statement);
+
 ?>

@@ -29,7 +29,7 @@
 <?php include(ROOT_DIR.$Template . 'head.php') ?>
 
 <script class="initial">
-var post=[],reply=[];
+var posts=[],replys=[];
 var load_url = "<?php echo $load_url ?>";
 var totalposts = <?php echo $totalposts ?>;
 var username = "<?php echo $username ?>";
