@@ -137,7 +137,6 @@
 	
 	#text{
 		margin-left:20px;
-		margin-bottom:30px;
 		color: #4D4D4D;
 		line-height: 20px;
 		margin-top:20px;
@@ -152,7 +151,7 @@
 	#readmore {
 	    cursor:pointer;
 	    background-color:#dcdcdc;
-	    float:right;
+	    margin-left:20px;
 	    color:#676767;
 	}
 	
@@ -231,6 +230,10 @@
 		height:120px;
 		width:120px;
 	}
+	
+	img{
+        border:1px solid #ccc;
+    }
 	
 	@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
 		/* iPhone, Android rules here */
