@@ -12,15 +12,16 @@ class Storytelling{
             $image = (($row[4]>0) ? ("st_".$row[4]) : null);//if exist image then return image filename or else return null
             
             //load plus1(like)
-            $plus1=mysql_fetch_row(mysql_query("SELECT COUNT(*) FROM storytelling_plus1 WHERE postid=$row[0]"))[0];
+            $plus1 = mysql_fetch_row(mysql_query("SELECT COUNT(*) FROM storytelling_plus1 WHERE postid=$row[0]"))[0];
             $plused = (mysql_fetch_row(mysql_query("SELECT * FROM storytelling_plus1 WHERE postid=$row[0] AND studentno=".$_SESSION['studentno']))[0] ? 0 : 1);//if user liked the post, no more like button for him
             $replys = mysql_fetch_row(mysql_query("SELECT COUNT(*) FROM storytelling_reply WHERE parentid=$row[0]"))[0];
             
+            $anonymous = mysql_fetch_row(mysql_query("SELECT anonymous from storytelling WHERE id=$row[5]"))[0];
            //to generate javascript for client to run. script is about the data of post in array type
             $output=array(
-                'id'    =>$row[0],
-                'studentno' =>$row[1],
-                'username'  =>$username,
+                'id'        =>($anonymous?0:$row[0]),
+                'studentno' =>($anonymous?0:$row[1]),
+                'username'  =>($anonymous?'anonymous':$username),
                 'text'      =>$row[2],
                 'image'     =>$image,
                 'time'      =>$row[3],

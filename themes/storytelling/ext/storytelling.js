@@ -1,26 +1,15 @@
 var loaded=0;//this var is the post number that have loaded
 
 //initial
-loadpost();addloaded();
+load();addloaded();
 
 $(window).scroll(function() {
     if (($(window).scrollTop()+$(window).height()==$(document).height())&&
         totalposts>loaded){
-	    loadpost();
+	    load();
 	    addloaded();
 	}
 });
-
-function loadpost(){
-    if(totalposts>=loaded){//var totalposts is set at <script>'id "initial"
-        //load(1) is load post, load(2) is reply(comment)
-        load(1);//loading posts first
-        setTimeout(function(){//loading reply of posts after 1 second 
-            load(2);
-            addloaded();
-        }, 1000);
-    }
-}
 
 function addloaded(){
     if(loaded+20<totalposts){
@@ -37,11 +26,11 @@ function addloaded(){
 //----------------------------------request the posts from server----------------------------------
 var loading=document.getElementById("loading");
 
-function load(mode) {
+function load() {
     if (totalposts>loaded){
     document.getElementById("loading").style.visibility = "visible";
 	$.ajax({
-		url: load_url+'&load='+loaded+'&mode='+mode,   //var load_url also set at <script>'id "initial"
+		url: load_url+'&load='+loaded,   //var load_url also set at <script>'id "initial"
 		//fully url will like this: ?p=st_loadposts&load=20&mode=1
 		type: 'POST',
 		data: {
