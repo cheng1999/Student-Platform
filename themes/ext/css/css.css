@@ -6,30 +6,6 @@
 		padding:0;
 	}
 	
-	header {
-	    background-image:url('../image/header-bg.jpg');
-		height:70px;
-	}
-	
-	#lgo {
-	    padding-top:15px;
-	    float:left;
-	    color:#fff;
-	    font-family:"Ubuntu";
-	    text-decoration: none;
-	}
-	
-	#lgoCmt {
-	    border-left:1px solid #D9D9D9;
-	    font-size: 14px;
-        margin: 8px 10px 0 16px;
-        padding: 4px 0 6px 14px;
-	}
-	
-	#nav {
-	    margin:auto;
-    	width:960px;
-	}
 	
 	div#container{ 
 		margin: auto;
@@ -53,25 +29,7 @@
 		background-color:#ccc;
 		overflow:hidden;
 	}
-/*--------------------------------------------------------------------------------*/
-	#nav ul{
-		height:40px;
-	}
-	#nav li {
-		float: left;
-		display:inline-block;
-	}
-	#nav a:link,#nav a:visited {
-		color: #fff;
-		display: block;
-		float: left;
-		font-weight: bold;
-		padding: 10px 54px;
-		text-decoration: none;
-	}
-	#nav a:hover, a:active {
-		
-	}
+
 /*--------------------------------------------------------------------------------*/
 	#movCon{
 		vertical-align: middle;
