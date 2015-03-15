@@ -10,7 +10,7 @@
     }
 </script>
     <span class="menu-toggle" onclick="togglemenu()">
-        <img src="http://programmer17.koding.io/Student-Platform/themes/ext/image/menu.png">
+        <img src="<?php echo $Template ?>ext/image/menu.png">
     </span>
 	<div id="nav">
 	    <div id="lgo">
