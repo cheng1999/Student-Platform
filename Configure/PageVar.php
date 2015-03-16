@@ -32,6 +32,9 @@ $indicated_Page=array(
     'login'         =>ROOT_DIR.$Template."login.php"         ,
     'validlogin'    =>ROOT_DIR."functions/login_validator.php"      ,
     
+    //notif
+    'notif'         =>ROOT_DIR."functions/notification.php"         ,
+    
     //storytelling
     'st_post'          =>ROOT_DIR."functions/storytelling/post.php"        ,
     'st_loadposts'     =>ROOT_DIR."functions/storytelling/loadposts.php"   ,

@@ -39,4 +39,28 @@ function nosymbol($string){
     preg_match($regex,$string,$string);
     return $string[0];
 }
+
+//function about notification
+function notify($studentno,$message,$link){
+    $time = date("Y/n/j \a\\t g:ia"); //date format:	2014/12/25 at 2:00am
+    
+    if(!@mysql_query("INSERT INTO notification (studentno,message,link,time) VALUES($studentno,'$message','$link','$time')"))
+        die(mysql_error());
+}
+function loadnotify($studentno){
+    $result = mysql_query("SELECT * FROM notification WHERE studentno=".$_SESSION['studentno']);
+    while($row = mysql_fetch_row($result)){
+        $output = array(
+            'id'            =>$row[1],
+            'message'       =>$row[2],
+            'link'          =>$row[3],
+            'time'          =>$row[4],
+        );
+        echo 'notifications.push('.json_encode($output).');';
+    }
+}
+function removenotify($id){
+    if(!@mysql_query("DELETE FROM notification WHERE id=$id"))
+        die(mysql_error());
+}
 ?>

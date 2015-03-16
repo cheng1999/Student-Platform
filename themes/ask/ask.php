@@ -26,8 +26,6 @@
         $detail = 0;
     }
     
-    $username = mysql_fetch_row(mysql_query("SELECT username FROM profile WHERE studentno=" . $_SESSION['studentno']))[0];//get username
-    
 ?>
 
 <!DOCTYPE HTML>
@@ -41,8 +39,7 @@ var questionid = "<?php echo @$_GET['questionid'] ?>"
 var load_url = "<?php echo $load_url ?>";
 var totalquestions = <?php echo $totalquestions ?>;
 var detail = <?php echo $detail ?> //the boolean to tell javascript load summary or detail
-var username = "<?php echo $username ?>";
-var studentno = <?php echo $_SESSION['studentno'] ?>;
+
 
 </script>
 

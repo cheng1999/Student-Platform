@@ -2,7 +2,6 @@
 //initial functions
 include(ROOT_DIR."functions/functions.php");
 
-
 //start session(cookies)
 session_start();
 

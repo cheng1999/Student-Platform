@@ -85,6 +85,11 @@ $detail=addslashes(htmlspecialchars($detail));
 		    if(!@mysql_query("INSERT INTO ask_answer (questionid, id ,studentno, answer , time)VALUES( $questionid, $studentno$questionid, $studentno, '$answer', '$time')"))
                 die( '<script>alert("'.mysql_error().'")</script>');
         }
+        
+        $asker=mysql_fetch_row(mysql_query("SELECT studentno FROM ask_question WHERE id=$questionid"))[0];
+        notify($asker,"Your question have a new answer !","?p=ask&questionid=$questionid");
+        
+        exit();
     }
         
     else if($mode==3){ //accepted answer
@@ -100,6 +105,10 @@ $detail=addslashes(htmlspecialchars($detail));
             if(!mysql_query("UPDATE ask_answer SET accepted=1 where id=$answerid"))
                 die(mysql_error());
         }
+        
+        $answerer=mysql_fetch_row(mysql_query("SELECT studentno FROM ask_answer WHERE questionid=$questionid"))[0];
+        notify($answerer,"Your answer is accepted !","?p=ask&questionid=$questionid");
+        
         exit();
     }
     else if($mode==4){  //discuss

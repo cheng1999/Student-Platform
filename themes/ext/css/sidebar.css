@@ -14,13 +14,14 @@
         border:none;
     }
 	header {
-	    transition: all 0.5s ease 0s;
+	    transition: margin-left 0.35s ease 0s;
         position:fixed;
         float: left;
         height: 100%;
         margin: auto;
         width: 370px;
         z-index:1;
+        margin-left:-300px;
 	}
 	
 	.navbar_pop{
@@ -38,10 +39,10 @@
         color:#fff;
         font-family:"Ubuntu";
         text-decoration: none;
-        background-color: #222;
+        background-color: #333;
         border-bottom: 3px solid #42b17e;
-        padding: 20px 0 30px 30px;
-        width: 270px;
+        padding: 20px 20px 30px 30px;
+        width: 250px;
 	}
 	
 	#lgo a{
@@ -63,16 +64,16 @@
         width: 300px;
 	}
 	
-	#nav ul{
+	#navul{
         float: left;
-        height: 40px;
         margin-top: 20px;
+        height:calc(100% - 140px);
 	}
-	#nav li {
+	#navul li {
         display: block;
         float: left;
 	}
-	#nav li:hover{
+	#navul li:hover{
 	    
 	}
 	
@@ -90,5 +91,45 @@
         text-decoration: none;
 	}
 	#navul a:hover,#navul a:active {
-		background-color:#333;
+		background-color:#444;
 	}
+	
+	.navbottom {
+        background-color: #333;
+        color: #fff;
+        display: block;
+        float: left;
+        width: 300px;
+    }
+    .navbottom .navuser{
+        cursor:pointer;
+        float:left;
+        margin:10px 20px;
+    }
+    .navuser img{
+        
+    }
+    .navuser .username{
+        text-overflow: ellipsis; 
+        overflow: hidden; 
+        max-width: 150px; 
+        display: inline-block;
+    }
+    .navbottom .navblock{
+        background-color: #222;
+        cursor: pointer;
+        display: inline-block;
+        float: right;
+        margin-right: 20px;
+        padding: 15px;
+    }
+    .navbottom .notification{
+        background-color: #444;
+        border-radius: 5px;
+        color: #aaa;
+        display: inline-block;
+        font-size: 15px;
+        height: 20px;
+        text-align: center;
+        width: 20px;
+    }
