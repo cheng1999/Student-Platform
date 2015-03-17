@@ -32,10 +32,7 @@ function load() {
 	$.ajax({
 		url: load_url+'&load='+loaded,   //var load_url also set at <script>'id "initial"
 		//fully url will like this: ?p=st_loadposts&load=20&mode=1
-		type: 'POST',
-		data: {
-			page:$(this).data('page'),
-		},
+		
 		success: function(response){
 			if(response){
 				loading.style.visibility = "hidden";

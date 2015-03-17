@@ -31,12 +31,20 @@
                 <img class="profilepic" src="">
                 <span class="username"></span>
             </div>
-            <span class="message">^</span>
-            <span class="navblock"><a class="notification"></a></span>
+            <a class="message navblock">^</a>
+            <a onclick="$('.notificationcontent').show();" onblur="$('.notificationcontent').hide()" class="navblock shownotif" href="#"><span class="notifications_count"></span></a>
         </div>
-        
+        <div class="notificationcontent">
+
+        </div>
 	</div>
-	
+</div>
+<div class="notif_html" style="display:none">
+    <div class="notif_block" onmousedown="">
+        <a class="notif_message"></a>
+        <a class="notif_time"></a>
+    </div>
+</div>
 	<script>
         function togglemenu(){
             if($("header").css("margin-left")=="0px"){
@@ -45,10 +53,30 @@
                 $("header").css("margin-left","0px");
             }
         }
+        function gonotif(notif_id,notif_link,bind){
+            $.ajax({
+                url:"?p=notif&read="+notif_id   ,
+                success: function(response){
+                    if(response){
+                        window.location.href=notif_link;
+                    }
+                }
+            });
+        }
         
+        //insert profile information
         $(".navbottom .profilepic").attr("src","uploads/profile_pic_"+studentno);
         $(".navbottom .username").html(username);
-        $(".navbottom .notification").html(notifications.length);
+        $(".navbottom .notifications_count").html(notifications.length);
         
+        //notifications
+        for(i=0;i<notifications.length;i++){
+            $(".notificationcontent").append($(".notif_html").html());
+        }
+        for(i=notifications.length-1;i>=0;i--){
+            $(".notificationcontent .notif_block")[i].setAttribute("onmousedown","gonotif("    +notifications[i].id+   ",'"     +notifications[i].link+     "',0)");
+            $(".notificationcontent .notif_message").html(notifications[i].message);
+            $(".notificationcontent .notif_time").html(notifications[i].time);
+        }
     </script>
 </header>
