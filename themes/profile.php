@@ -22,9 +22,9 @@
 <head>
 <?php include(__DIR__.'/head.php') ?>
 
+<link rel="stylesheet" href="<?php echo $Template ?>ext/css/profile.css">
 <script id="initial">
     var profile=<?php $profile-> userInformation(); ?>;
-    var username = "<?php echo mysql_fetch_row(mysql_query("SELECT username FROM profile WHERE studentno=" . $studentno))[0] //get username?>";
 </script>
 
 </head>
@@ -33,13 +33,24 @@
 
 <div id="container">
     <div id="user_information">
-        <img id="profilepicture" src=""></img>
-        <span class="name"></span>
-        <span class="class"></span>
+        <img src="" class="profilepic">
+        <div class="vcard">
+            <span class="name"></span>
+            <span class="class" style=""></span>
+        </div>
         <span class="birthday"></span>
         <div class="selfdescribe"></div>
+        
+        <script class="fill_information">
+            $("#user_information .profilepic").attr("src","uploads/profile_pic_"+profile.studentno);
+            $(".vcard .name").html(profile.username);
+            $(".vcard .class").html("("+profile.class+")");
+            $("#user_information .birthday").html((profile.birthday ? profile.birthday : "(haven't set yet)"));
+            $("#user_information .selfdescribe").html((profile.selfdescribe ? profile.selfdescribe : "(none)"));
+            
+        </script>
+        
     </div>
-    <br>
     
     <div id="storytelling">
         <a href="?p=storytelling&studentno=<?php echo $studentno;?>">Ta的分享</a>
