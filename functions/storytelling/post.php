@@ -14,6 +14,9 @@ $studentno=$_SESSION['studentno'];
 //intval() to prevent blind sql injection
 if(@intval($_GET['mode'])==3){ //if user click "+1" <a> button the value 3 will send with mode,which means like this post
     mysql_query("INSERT IGNORE INTO storytelling_plus1 (primarykey,studentno,postid)VALUES($studentno$plus1Target,$studentno,$plus1Target)");
+    
+    $poster = mysql_fetch_row(mysql_query("SELECT studentno FROM storytelling WHERE id=$PostID"))[0];
+    notify($poster,"a person plus 1 to your post !","?p=storytelling&postid=$PostID");
     exit();
 }
 
@@ -67,6 +70,9 @@ else{
 	else{
 		if(!@mysql_query("INSERT INTO storytelling_reply (parentid, studentno, text , time)VALUES( $PostID, $studentno, '$text', '$time')"))
 			die( mysql_error ());
+		
+    $poster = mysql_fetch_row(mysql_query("SELECT studentno FROM storytelling WHERE id=$PostID"))[0];
+    notify($poster,"Someone replied your post !","?p=storytelling&postid=$$PostID");
 	}
 }
 ?>

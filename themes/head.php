@@ -11,15 +11,7 @@
 	<link rel="stylesheet" href="<?php echo $Template ?>dist/css/bootstrap.min.css">
 	<script src="<?php echo $Template ?>dist/js/bootstrap.min.js"></script>
 	-->
-	<script var class = function() {
-	    
-	};
-	
-	(function() {
-	    this.prop = ""
-	}).call(class.prototype);
-	
-	exports.class = class;="initial">
+	<script class="initial">
 	    var username = "<?php echo mysql_fetch_row(mysql_query("SELECT username FROM profile WHERE studentno=" . $_SESSION['studentno']))[0]; ?>";
         var studentno = <?php echo $_SESSION['studentno'] ?>;
         var notifications = [];
