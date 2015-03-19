@@ -72,7 +72,7 @@ else{
 			die( mysql_error ());
 		
     $poster = mysql_fetch_row(mysql_query("SELECT studentno FROM storytelling WHERE id=$PostID"))[0];
-    notify($poster,"Someone replied your post !","?p=storytelling&postid=$$PostID");
+    notify($poster,"Someone replied your post !","?p=storytelling&postid=$PostID");
 	}
 }
 ?>
