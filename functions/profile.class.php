@@ -7,11 +7,11 @@ class Profile {
         while($row = mysql_fetch_row($result)){
             
             $output = array(
-                'studentno' =>$row[0],
-                'username'  =>$row[1],
-                'class'     =>$row[3],
-                'seft'      =>$row[4],  //self describe
-                'birthday'  =>$row[5],
+                'studentno'     =>$row[0],
+                'username'      =>$row[1],
+                'class'         =>$row[3],
+                'selfdescribe'  =>$row[4],  //self describe
+                'birthday'      =>$row[5],
             );
             echo json_encode($output);
         }

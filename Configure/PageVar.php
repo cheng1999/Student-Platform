@@ -21,16 +21,19 @@ $indicated_Page=array(
     //request name: target web path
     
     //main tabs in nav
-    'home'          =>ROOT_DIR.$Template."index.php"         ,
-    'profile'       =>ROOT_DIR.$Template."profile.php"       ,
+    'home'          =>ROOT_DIR.$Template."index.php"        ,
+    'profile'       =>ROOT_DIR.$Template."profile.php"      ,
     'storytelling'  =>ROOT_DIR.$Template."storytelling/storytelling.php"  ,
-    'ask'           =>ROOT_DIR.$Template."ask/ask.php"       ,//at the beginning we found out something, and we ask: why ?
-    'classEventBook'=>ROOT_DIR.$Template.""                  ,//have not start this project yet
-    'aboutus'       =>ROOT_DIR.$Template."aboutus.php"       ,
+    'ask'           =>ROOT_DIR.$Template."ask/ask.php"      ,//at the beginning we found out something, and we ask: why ?
+    'classEventBook'=>ROOT_DIR.$Template.""                 ,//have not start this project yet
+    'aboutus'       =>ROOT_DIR.$Template."aboutus.php"      ,
     
     //login
-    'login'         =>ROOT_DIR.$Template."login.php"         ,
+    'login'         =>ROOT_DIR.$Template."login.php"        ,
     'validlogin'    =>ROOT_DIR."functions/login_validator.php"      ,
+    
+    //profile
+    'editprofile'   =>ROOT_DIR."functions/editprofile.php"          ,
     
     //notif
     'notif'         =>ROOT_DIR."functions/notification.php"         ,

@@ -38,3 +38,49 @@
     display: inline-block;
     margin-left: 10px;
 }
+
+.profile_form{
+    border: 1px solid #ccc;
+    width: 680px;
+    float: right;
+    padding: 20px;
+}
+
+.form-profile-img{
+    float:left;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    display: inline-block;
+    height: 100px;
+    width: 100px;
+    margin-right:20px;
+}
+
+.form-part{
+    float:left;
+    display: block;
+    margin:20px 0;
+    width: 500px;
+    color:  #777;
+}
+
+.profile_form .input_label{
+    display: block;
+    height: 30px;
+    font-weight: bold;
+}
+
+.profile_form input{
+    height:30px;
+}
+
+.profile_form textarea{
+    border:1px solid #ccc;
+    height:100px;
+}
+
+.profile_form input,.profile_form textarea{
+    float:left;
+    border:1px solid #ccc;
+    width: 100%;
+}

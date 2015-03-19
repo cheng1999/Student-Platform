@@ -1,10 +1,24 @@
-function enc(form)
-{
-        if (form.password.value != '')
-        {
-            form.hash.value = MD5(form.password.value);
+function loginhash(form){
+    if (form.password.value != ''){
+        form.hash.value = MD5(form.password.value);
+    }
+}
+
+function changehash(form){
+    if(form.first_pw.value!=form.second_pw.value){
+        alert("Your password don't match");
+        return false;
+    }
+    else{
+        if(form.current_pw.value != ''){
+            form.current_pw.value = MD5(form.current_pw.value);
         }
-        
+        if(form.first_pw.value != ''){
+            form.first_pw.value = MD5(form.first_pw.value);
+            form.second_pw.value = MD5(form.second_pw.value);
+        }
+        return true;
+    }
 }
 
 var MD5 = function (string) {

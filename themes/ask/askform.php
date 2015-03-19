@@ -11,8 +11,7 @@
 					this.parentNode.buttonSubmit.click();
 					return false};
 					"></textarea>
-				<br>
-				<input id="attachment" type="file" name="image"><br>
+				<span class="upload_btn">Upload picture<input type="file" name="image" class="upload_input"></span>
 				
 				<input id="buttonSubmit" type="submit" value="Post (ctrl+enter)" onclick="Posting($(this))">
 			</form>

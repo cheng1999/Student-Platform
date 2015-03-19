@@ -79,22 +79,10 @@
 		height: 125px;
 		width: 100%;
 	}
-	
-	#Postbox #attachment {
-	    background-color: #ccc;
-		color: #f9f9f9;
-		font-size: small;
-		font-weight:bold;
-		text-align:center;
-		width:50%;
-		margin-bottom:5px;
-		height:25px;
-		text-transform: uppercase;
-		cursor:pointer;
-	}
-	
+
 	#Postbox #buttonSubmit {
 		background-color: #42b17e;
+		margin-top: 20px;
 		color: #fff;
 		font-size: small;
 		height:50px;
