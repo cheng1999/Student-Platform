@@ -13,10 +13,11 @@ create table storytelling_report (postid int(11) not null,studentno int(7) not n
 //ask
 create table ask_question (id int(11) not null auto_increment primary key,studentno int(7) not null,summary text not null,detail text,time varchar(21) not null, imageid int(11),views int(3) not null default 0,solved int(1));
 create table ask_answer (questionid int(11) not null,id int(19) not null ,studentno int(7) not null,answer text not null,time varchar(21) not null,imageid int(11),accepted int(1));
-create table ask_discuss (questionid int(11) not null, studentno int(7) not null, text text not null, time varchar(21)not null)
+create table ask_discuss (questionid int(11) not null, studentno int(7) not null, text text not null, time varchar(21)not null);
 
 
 //to create an account
 //hash have salt
 insert into profile(studentno,username,hash,class,self,birthday)values(2013045,'Cheng','82b6c6443657b3e6ac99a341960aa887','J3X',null,null);
 insert into profile(studentno,username,hash,class,self,birthday)values(2013043,'Titus Ling How Zhe','82b6c6443657b3e6ac99a341960aa887','J3X',null,null);
+insert into profile(studentno,username,hash,class,self,birthday)values(2013044,'Oscar','82b6c6443657b3e6ac99a341960aa887','J3X',null,null);

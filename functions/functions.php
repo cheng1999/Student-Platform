@@ -24,7 +24,7 @@ function processimage($image,$filename){
         echo '<script>alert("error where upload")</script>';
         echo '<script>alert("error code :'.$image['error'].'")</script>';
     }
-    if (!preg_match( '/gif|png|x-png|jpeg/', $image['type'])||!getimagesize($image['tmp_name'])){      //check is image or not
+    if (!preg_match( '/gif|png|x-png|jpeg/', $image['type'])&&!getimagesize($image['tmp_name'])){      //check is image or not
         die('<script>alert("Illegal file upload break")</script>');
     }
     //if (getimagesize($image['tmp_name'])!=false){
