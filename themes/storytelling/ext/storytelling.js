@@ -92,10 +92,10 @@ function loadreplys(){
             target=$(".post#"+replys[i].parentpostid);
             
             target.find("#ReplyList").append($(".replycontent").html());
-            target.find("#user:last").html(replys[i].username);
-            target.find("#user:last").attr("href","?p=profile&studentno="+replys[i].studentno);
-            target.find("#text:last").html(replys[i].text);
-            target.find("#date:last").html(replys[i].time);
+            target.find("#ReplyList #user:last").html(replys[i].username);
+            target.find("#ReplyList #user:last").attr("href","?p=profile&studentno="+replys[i].studentno);
+            target.find("#ReplyList #text:last").html(replys[i].text);
+            target.find("#ReplyList #date:last").html(replys[i].time);
         }
 	}/*
 	for(i=replys.length-1;i>=0;i--){
