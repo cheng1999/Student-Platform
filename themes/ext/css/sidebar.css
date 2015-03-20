@@ -129,6 +129,9 @@
     .navbottom .shownotif{
         right:0;
     }
+    .navbottom .showopera{
+        right:50px;
+    }
     .navbottom .navblock:hover, .navbottom .navblock:active{
         background-color: #222;
     }
@@ -141,6 +144,27 @@
         height: 20px;
         text-align: center;
         width: 20px;
+    }
+    
+    .operacontent{
+       color: rgb(255, 255, 255);
+       position: absolute;
+       bottom: 49px;
+       right: 0px;
+       background-color:#222;
+       padding: 10px;
+       display:none;
+    }
+    .opera-selection{
+        cursor:pointer;
+        text-align: center;
+        border-radius: 5px;
+        display: block;
+        width: 100px;
+        padding: 5px 0px;
+    }
+    .opera-selection:hover{
+        background-color: #555; 
     }
 
     .notificationcontent{

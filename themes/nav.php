@@ -31,12 +31,16 @@
                 <img class="profilepic" src="">
                 <span class="username"></span>
             </div>
-            <a class="message navblock">^</a>
+            <a onclick="$('.operacontent').show();" onblur="$('.operacontent').hide();" class="navblock showopera" href="#">^</a>
             <a onclick="$('.notificationcontent').show();" onblur="$('.notificationcontent').hide()" class="navblock shownotif" href="#"><span class="notifications_count"></span></a>
         </div>
+        
         <div class="notificationcontent">
-
         </div>
+        <div class="operacontent">
+            <span class="opera-selection" onmousedown="window.location.href='?p=login&logout=1'">logout</span>
+        </div>
+        
 	</div>
 </div>
 <div class="notif_html" style="display:none">
