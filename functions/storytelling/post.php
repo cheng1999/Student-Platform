@@ -73,9 +73,10 @@ else{
 		if(!@mysql_query("INSERT INTO storytelling_reply (parentid, studentno, text , time)VALUES( $PostID, $studentno, '$text', '$time')"))
 			die( mysql_error ());
 		
-    $poster = mysql_fetch_row(mysql_query("SELECT studentno FROM storytelling WHERE id=$PostID"))[0];
-	if($studentno!=$poster){
-    		notify($poster,"Someone replied your post !","?p=storytelling&postid=$PostID");
+    		$poster = mysql_fetch_row(mysql_query("SELECT studentno FROM storytelling WHERE id=$PostID"))[0];
+		if($studentno!=$poster){
+   			notify($poster,"Someone replied your post !","?p=storytelling&postid=$PostID");
+		}
 	}
 }
 ?>
