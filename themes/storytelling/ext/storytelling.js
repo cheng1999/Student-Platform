@@ -97,15 +97,7 @@ function loadreplys(){
             target.find("#ReplyList #text:last").html(replys[i].text);
             target.find("#ReplyList #date:last").html(replys[i].time);
         }
-	}/*
-	for(i=replys.length-1;i>=0;i--){
-	    if($("*.post#"+replys[i].parentpostid)){
-	    console.log(i);
-            $("*.reply #user")[i].innerHTML=replys[i].username;
-            $("*.reply #user")[i].setAttribute("href","?p=profile&studentno="+replys[i].studentno);
-            $("*.reply #text")[i].innerHTML=replys[i].text;
-	    }
-	}*/
+	}
 }
 
 //some action listener
@@ -153,13 +145,18 @@ function Replying(THIS){
     THIS.css("backgroundColor","#d9534f");
     THIS.val("Posting...");
     totalposts+=1;
+    h=THIS;
     $("#PostAction").load(function(){
-        THIS.closest(".cmt").parent().append(
-    	    "<div class=\"reply\"><div id=\"cmtauthor\">"   +
-    		"<a id=\"user\" onclick=\"invalid_action()\">" + username + "</a>"                     +   //username
-    		"<date>just now</date></div>"        +   //time
-    		"<div id=\"Pcontent\"><div id=\"text\">" + $("*#textInput")[1].value + "</div></div></div>"     //text
-			);
+        replys.push({
+            "parentpostid":THIS.closest(".post").attr("id"),
+            "studentno":studentno,
+            "username":username,
+            "text":$("*#textInput")[1].value,
+            "time":"just now",
+        });
+        
+        loadreplys();
+        replys=[];
 		
 			//restore
         THIS.css("backgroundColor","#42b17e");
