@@ -16,8 +16,10 @@ if(@intval($_GET['mode'])==3){ //if user click "+1" <a> button the value 3 will 
     mysql_query("INSERT IGNORE INTO storytelling_plus1 (primarykey,studentno,postid)VALUES($studentno$plus1Target,$studentno,$plus1Target)");
     
     $poster = mysql_fetch_row(mysql_query("SELECT studentno FROM storytelling WHERE id=$PostID"))[0];
-    notify($poster,"a person plus 1 to your post !","?p=storytelling&postid=$PostID");
-    exit();
+	if($studentno!==$poster){
+    		notify($poster,"a person plus 1 to your post !","?p=storytelling&postid=$PostID");
+    		exit();
+	}
 }
 
 /*
@@ -72,7 +74,8 @@ else{
 			die( mysql_error ());
 		
     $poster = mysql_fetch_row(mysql_query("SELECT studentno FROM storytelling WHERE id=$PostID"))[0];
-    notify($poster,"Someone replied your post !","?p=storytelling&postid=$PostID");
+	if($studentno!=$poster){
+    		notify($poster,"Someone replied your post !","?p=storytelling&postid=$PostID");
 	}
 }
 ?>

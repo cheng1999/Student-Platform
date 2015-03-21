@@ -130,11 +130,10 @@ div#PostList {
 	border-bottom:1px solid #8BC7FF;
 }
 
-#text{
-	margin-left:20px;
+#text{	
 	color: #4D4D4D;
 	line-height: 20px;
-	margin-top:20px;
+	margin: 10px 0 20px 20px;
 	max-height:100px;
 	overflow:hidden;
 }
