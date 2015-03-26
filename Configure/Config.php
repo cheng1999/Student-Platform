@@ -11,6 +11,8 @@ $DB_PASS="";            //Database Password
 
 $DB_CHAR="utf8";        //Database Charset
 
+//admin control panel
+$admin_hash=md5("spadmin");
 
 //html Layout Config
 $Title="公教村";

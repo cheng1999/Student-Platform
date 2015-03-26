@@ -8,7 +8,9 @@ programmer:Lee Guo Cheng
 
 -->
 <html>
+<head>
 <?php include(__DIR__."/head.php") ?>
+</head>
 
 <body>
 <?php 

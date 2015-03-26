@@ -16,7 +16,7 @@ class Storytelling{
             $plused = (mysql_fetch_row(mysql_query("SELECT * FROM storytelling_plus1 WHERE postid=$row[0] AND studentno=".$_SESSION['studentno']))[0] ? 0 : 1);//if user liked the post, no more like button for him
             $replys = mysql_fetch_row(mysql_query("SELECT COUNT(*) FROM storytelling_reply WHERE parentid=$row[0]"))[0];
             
-            $anonymous = mysql_fetch_row(mysql_query("SELECT anonymous from storytelling WHERE id=$row[5]"))[0];
+            $anonymous = $row[5];
            //to generate javascript for client to run. script is about the data of post in array type
             $output=array(
                 'id'        =>($anonymous?0:$row[0]),
@@ -31,9 +31,7 @@ class Storytelling{
             );
            
            echo "posts.push(".json_encode($output).");";
-           /*//post.push([id,studentno,username,text,time,plus1,boolean plused,image,replys])
-            echo "post.push([$row[0],$row[1],'$username','$row[2]','$row[3]',$plus1,$plused,$image,$reply]);";
-            */
+
         }
     }
     

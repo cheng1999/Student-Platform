@@ -20,6 +20,9 @@
 $indicated_Page=array(
     //request name: target web path
     
+    //admin control panel (better change the path of admin control panel)
+    'admin'         =>ROOT_DIR."admin/index.php"      ,
+    
     //main tabs in nav
     'home'          =>ROOT_DIR.$Template."index.php"        ,
     'profile'       =>ROOT_DIR.$Template."profile.php"      ,
