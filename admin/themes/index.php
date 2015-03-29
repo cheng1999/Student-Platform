@@ -16,18 +16,19 @@
 
 <body>
 	<div id="container">
-		<form style="margin-top:50px" id="Postbox" method="post" action="?p=report" enctype="multipart/form-data">
+	<a onclick="window.location.href+='&logout=1'" class="btn" style="float:right">logout</a>
+		<form style="margin-top:50px" id="Postbox" method="post" action="" enctype="multipart/form-data">
 		<h1 style="margin-bottom:20px">公告：</h1>
 		    
 		    Title:
-			<textarea style="height:5vh" id="textInput" name="title"
+			<textarea style="height:5vh" id="textInput" name="notice_title"
 			onkeydown="if(event.ctrlKey&&event.keyCode==13){
 				this.parentNode.buttonSubmit.click();
 				return false};
 				"></textarea>
 				
 			Content:
-			<textarea style="height:40vh" id="textInput" name="Content"
+			<textarea style="height:40vh" id="textInput" name="notice_content"
 			onkeydown="if(event.ctrlKey&&event.keyCode==13){
 				this.parentNode.buttonSubmit.click();
 				return false};

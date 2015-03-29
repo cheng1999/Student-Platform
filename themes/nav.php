@@ -10,7 +10,7 @@
 		</div>
 		<ul id="navul">
 			<li>
-				<a href="?p=home">首页</a>
+				<a href="?p=home">通告</a>
 			</li>
 
 			<li>
