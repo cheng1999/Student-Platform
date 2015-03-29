@@ -21,7 +21,7 @@ $indicated_Page=array(
     //request name: target web path
     
     //admin control panel (better change the path of admin control panel)
-    'admin'         =>ROOT_DIR."admin/index.php"      ,
+    'admin'         =>ROOT_DIR."admin/index.php"      ,//only this value can customly change directly,request name and path both can both
     
     //main tabs in nav
     'home'          =>ROOT_DIR.$Template."index.php"        ,

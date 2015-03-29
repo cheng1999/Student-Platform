@@ -10,7 +10,7 @@ if(@$_GET['logout']){
     exit();
 }
 else{
-    include('admin.class.php');
+    include(ADMIN_PATH.'admin.class.php');
     $admin = new Admin();
     
     if(@$_POST['notice_title']){

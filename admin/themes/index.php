@@ -17,7 +17,7 @@
 <body>
 	<div id="container">
 	<a onclick="window.location.href+='&logout=1'" class="btn" style="float:right">logout</a>
-		<form style="margin-top:50px" id="Postbox" method="post" action="" enctype="multipart/form-data">
+		<form style="margin-top:50px" id="Postbox" method="post" action="#" enctype="multipart/form-data">
 		<h1 style="margin-bottom:20px">公告：</h1>
 		    
 		    Title:

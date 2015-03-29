@@ -38,28 +38,6 @@ div#PostList {
 	clear:both;
 }
 
-#loadstatus{
-    padding:10px;
-    color:#4D4D4D;
-    font-weight:bold;
-    height:50px;
-    box-shadow: 0 0 10px #ddd;
-	border: 1px dotted #ddd;
-	margin-top:20px;
-	height:120px;
-}
-img#loading {
-	height:120px;
-	width:120px;
-	display:block;
-}
-#loadstatus *{
-    display:none;
-}
-#nomore{
-    margin:40px;
-}
-
 .clear {
     clear:both;
 }
@@ -91,13 +69,6 @@ img#loading {
 
 #ReplyList {
     display:none;
-}
-
-.readmore {
-    cursor:pointer;
-    background-color:#dcdcdc;
-    margin-left:20px;
-    color:#676767;
 }
 	
 #user,.user {

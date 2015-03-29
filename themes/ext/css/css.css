@@ -14,6 +14,9 @@ div#container{
 	border:3px solid #eee;
 	overflow:auto;
 }
+div#hideCon {
+	display:none;
+}
 
 .upload_btn{
     border: 1px solid #ccc;
@@ -47,4 +50,42 @@ div#container{
 }
 .btn:hover{
     background-color:#ddd;
+}
+
+.cmt{
+	box-shadow: 0 0 10px #ddd;
+	border: 1px dotted #ddd;
+	margin-bottom:10px;
+	padding:10px;
+	clear:both;
+}
+
+#loadstatus{
+    padding:10px;
+    color:#4D4D4D;
+    font-weight:bold;
+    height:50px;
+    box-shadow: 0 0 10px #ddd;
+	border: 1px dotted #ddd;
+	margin-top:20px;
+	height:120px;
+}
+img#loading {
+	height:120px;
+	width:120px;
+	display:block;
+}
+#loadstatus *{
+    display:none;
+}
+#nomore{
+    margin:40px;
+}
+
+#readmore, .readmore {
+    cursor:pointer;
+    background-color:#dcdcdc;
+    margin-left:20px;
+    color:#676767;
+    padding:0 5px;
 }

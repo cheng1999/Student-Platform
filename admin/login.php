@@ -10,7 +10,7 @@ if(@$_POST['hash']){
 }
 
 else{
-    include ADMIN_PATH.'themes/login.php';
+    include(ADMIN_PATH.'themes/login.php');
 }
 
 ?>

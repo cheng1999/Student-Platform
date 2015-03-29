@@ -12,7 +12,7 @@ $DB_PASS="";            //Database Password
 $DB_CHAR="utf8";        //Database Charset
 
 //admin control panel
-$admin_hash=md5("!2#4%6&8(0SuPeR PW");// password must me strong ,if admin hacked, xss or get shell even
+$admin_hash=md5(md5("!2#4%6&8(0SuPeR PW"));// password must me strong ,if admin hacked, xss or get shell even
 
 //html Layout Config
 $Title="公教村";
