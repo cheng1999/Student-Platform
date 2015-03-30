@@ -1,5 +1,11 @@
 function loginhash(form){
     if (form.password.value != ''){
+        form.hash.value = MD5(form.password.value);
+    }
+}
+
+function adminhash(form){
+    if (form.password.value != ''){
         form.hash.value = MD5(MD5(form.password.value));
     }
 }
