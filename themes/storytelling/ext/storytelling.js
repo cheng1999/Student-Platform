@@ -74,7 +74,7 @@ function loadposts(){
 		
 		$("date")[i].innerHTML=posts[i].time;
 		
-		(posts[i].image ? $("*.post #postimg")[i].setAttribute("src","uploads/"+posts[i].image) : $("*.post #postimg")[i].remove());
+		(posts[i].image ? $("*.post #postimg")[i].setAttribute("src","uploads/"+posts[i].image) : $("*.post#"+posts[i].id).find("#postimg").remove());
     
 		if(!posts[i].plused){
             $("*.post #plus1")[i].remove();
