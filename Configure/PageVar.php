@@ -31,8 +31,11 @@ $indicated_Page=array(
     'classEventBook'=>ROOT_DIR.$Template.""                 ,//have not start this project yet
     'aboutus'       =>ROOT_DIR.$Template."aboutus.php"      ,
     
+    //notice board
+    'loadnotice'    =>ROOT_DIR.$Template."functions/loadnotice.php"     ,
+    
     //report
-    'report'        =>ROOT_DIR.$Template."report.php"        ,
+    'report'        =>ROOT_DIR.$Template."report.php"       ,
     
     //login
     'login'         =>ROOT_DIR.$Template."login.php"        ,
